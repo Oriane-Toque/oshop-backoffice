@@ -92,6 +92,21 @@ class Product extends CoreModel {
         return $results;
     }
 
+    public function findFiveProducts()
+    {
+        $pdo = Database::getPDO();
+        $sql = '
+            SELECT *
+            FROM product
+            ORDER BY id ASC
+            LIMIT 5
+        ';
+        $pdoStatement = $pdo->query($sql);
+        $categories = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
+        
+        return $categories;
+    }
+
     /**
      * Get the value of name
      *

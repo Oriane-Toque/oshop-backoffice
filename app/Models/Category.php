@@ -150,4 +150,20 @@ class Category extends CoreModel {
         
         return $categories;
     }
+
+    public function findFiveCategories()
+    {
+        $pdo = Database::getPDO();
+        $sql = '
+            SELECT *
+            FROM category
+            ORDER BY id ASC
+            LIMIT 5
+        ';
+
+        $pdoStatement = $pdo->query($sql);
+        $categories = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
+        
+        return $categories;
+    }
 }
