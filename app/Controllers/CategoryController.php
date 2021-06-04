@@ -50,17 +50,27 @@
     public function create()
     {
 
-      // je réflechis
-      // de quoi j'ai besoin ??
-      //TODO dd($_POST);
-      $newCategory = new Category();
-      $newCategory->setName($_POST["nameCategory"]);
+      // dd($_POST);
+      /*===========RECUPERATION DES DONNEES DU FORMULAIRE + FILTRES DE NETTOYAGES===========*/
+      $nameCategory = filter_input(INPUT_POST, 'nameCategory', FILTER_SANITIZE_STRING);
+      $subtitleCategory = filter_input(INPUT_POST, 'subtitleCategory', FILTER_SANITIZE_STRING);
+      $pictureCategory = filter_input(INPUT_POST, 'pictureCategory');
 
-      // j'ai besoin des infos qui sont dans $_POST
-      // j'ai besoin du model pour inserer en base
-      // j'insère en base
-      // normalement j'affiche quelquechose  ??? lecture CDC
-      // CDC dit rediriger vers la liste avec header()
+      // Instanciation de mon modèle Category
+      $newCategoryModel = new Category();
 
+      //=================ATTRIBUTION DES VALEURS DU FORMULAIRE VIA MES SETTERS==============*/
+      $newCategoryModel->setName($nameCategory);
+      $newCategoryModel->setSubtitle($subtitleCategory);
+      $newCategoryModel->setPicture($pictureCategory);
+      // dd($newCategoryModel);
+
+      // Appel de ma méthod insert() pour ajouter ma nouvelle catégorie
+      $newCategoryModel->insert();
+
+      //===================REORIENTATION VERS LA PAGE category/list=========================*/
+
+      header('Location:list');
+      exit();
     }
 }

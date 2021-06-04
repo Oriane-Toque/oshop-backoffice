@@ -2,7 +2,7 @@
   <a href="<?= $router->generate('category-list'); ?>" class="btn btn-success float-right">Retour</a>
   <h2>Ajouter une catégorie</h2>
 
-  <form action="<?= $router->generate('category-create'); ?>" method="POST" class="mt-5">
+  <form action="<?= $router->generate('category-create'); ?>" method="POST" enctype="multipart/form-data" class="mt-5">
     <div class="form-group">
       <label for="name">Nom</label>
       <input type="text" name="nameCategory" class="form-control" id="name" placeholder="Nom de la catégorie">
