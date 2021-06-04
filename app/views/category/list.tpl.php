@@ -1,5 +1,5 @@
 <div class="container my-4">
-  <a href="<?= $router->generate('catalog-category-add'); ?>" class="btn btn-success float-right">Ajouter</a>
+  <a href="#" class="btn btn-success float-right">Ajouter</a>
   <h2>Liste des catégories</h2>
   <table class="table table-hover mt-4">
     <thead>
@@ -12,7 +12,12 @@
     </thead>
     <tbody>
 
-      <?php foreach ($categories as $category) : ?>
+      <?php
+      /**
+       * @var Category $category
+       */
+      foreach ($categoryList as $category) :
+      ?>
         <tr>
           <th scope="row"><?= $category->getId(); ?></th>
           <td><?= $category->getName(); ?></td>

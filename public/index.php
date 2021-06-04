@@ -56,7 +56,7 @@ $router->map(
 );
 
 
-$router->map(
+/* $router->map(
     'GET',
     '/category-add',
     [
@@ -85,7 +85,7 @@ $router->map(
         'controller' => '\App\Controllers\CatalogController'
     ],
     'catalog-product-add'
-);
+); */
 
 
 /* -------------
