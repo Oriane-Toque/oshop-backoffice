@@ -76,6 +76,7 @@ $router->map(
     'product-add'
 );
 
+/* route pour la soumission du formulaire (ajout categorie) */
 $router->map(
     'POST',
     '/category/add',

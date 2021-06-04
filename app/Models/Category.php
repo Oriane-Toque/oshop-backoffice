@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Models;
+  namespace App\Models;
 
-use App\Utils\Database;
-use PDO;
+  use App\Utils\Database;
+  use PDO;
 
-class Category extends CoreModel {
+  class Category extends CoreModel
+  {
 
     /**
      * @var string
@@ -28,68 +29,68 @@ class Category extends CoreModel {
      * Get the value of name
      *
      * @return  string
-     */ 
+     */
     public function getName()
     {
-        return $this->name;
+      return $this->name;
     }
 
     /**
      * Set the value of name
      *
      * @param  string  $name
-     */ 
+     */
     public function setName(string $name)
     {
-        $this->name = $name;
+      $this->name = $name;
     }
 
     /**
      * Get the value of subtitle
-     */ 
+     */
     public function getSubtitle()
     {
-        return $this->subtitle;
+      return $this->subtitle;
     }
 
     /**
      * Set the value of subtitle
-     */ 
+     */
     public function setSubtitle($subtitle)
     {
-        $this->subtitle = $subtitle;
+      $this->subtitle = $subtitle;
     }
 
     /**
      * Get the value of picture
-     */ 
+     */
     public function getPicture()
     {
-        return $this->picture;
+      return $this->picture;
     }
 
     /**
      * Set the value of picture
-     */ 
+     */
     public function setPicture($picture)
     {
-        $this->picture = $picture;
+      $this->picture = $picture;
     }
 
     /**
      * Get the value of home_order
-     */ 
+     */
     public function getHomeOrder()
     {
-        return $this->home_order;
+      return $this->home_order;
     }
 
     /**
      * Set the value of home_order
-     */ 
+     */
     public function setHomeOrder($home_order)
     {
-        $this->home_order = $home_order;
+      $this->home_order = $home_order;
     }
 
     /**
@@ -100,20 +101,20 @@ class Category extends CoreModel {
      */
     public static function find($categoryId)
     {
-        // se connecter à la BDD
-        $pdo = Database::getPDO();
+      // se connecter à la BDD
+      $pdo = Database::getPDO();
 
-        // écrire notre requête
-        $sql = 'SELECT * FROM `category` WHERE `id` =' . $categoryId;
+      // écrire notre requête
+      $sql = 'SELECT * FROM `category` WHERE `id` =' . $categoryId;
 
-        // exécuter notre requête
-        $pdoStatement = $pdo->query($sql);
+      // exécuter notre requête
+      $pdoStatement = $pdo->query($sql);
 
-        // un seul résultat => fetchObject
-        $category = $pdoStatement->fetchObject('App\Models\Category');
+      // un seul résultat => fetchObject
+      $category = $pdoStatement->fetchObject('App\Models\Category');
 
-        // retourner le résultat
-        return $category;
+      // retourner le résultat
+      return $category;
     }
 
     /**
@@ -123,12 +124,12 @@ class Category extends CoreModel {
      */
     public static function findAll()
     {
-        $pdo = Database::getPDO();
-        $sql = 'SELECT * FROM `category`';
-        $pdoStatement = $pdo->query($sql);
-        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
-        
-        return $results;
+      $pdo = Database::getPDO();
+      $sql = 'SELECT * FROM `category`';
+      $pdoStatement = $pdo->query($sql);
+      $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
+
+      return $results;
     }
 
     /**
@@ -138,17 +139,50 @@ class Category extends CoreModel {
      */
     public static function findAllHomepage()
     {
-        $pdo = Database::getPDO();
-        $sql = '
-            SELECT *
-            FROM category
-            WHERE home_order > 0
-            ORDER BY home_order ASC
-        ';
-        $pdoStatement = $pdo->query($sql);
-        $categories = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
-        
-        return $categories;
+      $pdo = Database::getPDO();
+      $sql = '
+              SELECT *
+              FROM category
+              WHERE home_order > 0
+              ORDER BY home_order ASC
+          ';
+      $pdoStatement = $pdo->query($sql);
+      $categories = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
+
+      return $categories;
     }
 
-}
+    /**
+     * Méthode permettant d'ajouter un enregistrement dans la table category
+     *
+     * @return bool
+     */
+    public function insert()
+    {
+      // TODO
+
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
+
+      // Ecriture de la requête INSERT INTO
+      $sql = "
+              INSERT INTO `category` (name, subtitle, picture)
+              VALUES ('{$this->name}', '{$this->subtitle}', '{$this->picture}')
+          ";
+
+      // Execution de la requête d'insertion (exec, pas query)
+      $insertedRows = $pdo->exec($sql);
+
+      // Si au moins une ligne ajoutée
+      if ($insertedRows > 0) {
+        // Alors on récupère l'id auto-incrémenté généré par MySQL
+        $this->id = $pdo->lastInsertId();
+
+        // On retourne VRAI car l'ajout a parfaitement fonctionné
+        return true;
+        // => l'interpréteur PHP sort de cette fonction car on a retourné une donnée
+      }
+      // Si on arrive ici, c'est que quelque chose n'a pas bien fonctionné => FAUX
+      return false;
+    }
+  }
