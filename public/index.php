@@ -50,42 +50,38 @@ $router->map(
 
 $router->map(
     'GET',
-    '/categorie/liste',
+    '/category/list',
     '\App\Controllers\CategoryController::list',
     'category-list'
 );
 
-
-/* $router->map(
+$router->map(
     'GET',
-    '/category-add',
-    [
-        'method' => 'categoryAdd',
-        'controller' => '\App\Controllers\CatalogController'
-    ],
-    'catalog-category-add'
+    '/category/add',
+    '\App\Controllers\CategoryController::add',
+    'category-add'
 );
 
 $router->map(
     'GET',
-    '/products',
-    [
-        'method' => 'products',
-        'controller' => '\App\Controllers\CatalogController'
-    ],
-    'catalog-products'
+    '/product/list',
+    '\App\Controllers\ProductController::list',
+    'product-list'
 );
-
 
 $router->map(
     'GET',
-    '/product-add',
-    [
-        'method' => 'productAdd',
-        'controller' => '\App\Controllers\CatalogController'
-    ],
-    'catalog-product-add'
-); */
+    '/product/add',
+    '\App\Controllers\ProductController::add',
+    'product-add'
+);
+
+$router->map(
+    'POST',
+    '/category/add',
+    '\App\Controllers\CategoryController::create',
+    'category-create'
+);
 
 
 /* -------------

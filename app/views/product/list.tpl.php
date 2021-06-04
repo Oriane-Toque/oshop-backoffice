@@ -1,5 +1,5 @@
 <div class="container my-4">
-  <a href="<?= $router->generate('catalog-product-add'); ?>" class="btn btn-success float-right">Ajouter</a>
+  <a href="<?= $router->generate('product-add'); ?>" class="btn btn-success float-right">Ajouter</a>
   <h2>Liste des produits</h2>
   <table class="table table-hover mt-4">
     <thead>
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
 
-      <?php foreach ($products as $product) : ?>
+      <?php foreach ($productList as $product) : ?>
         <tr>
           <th scope="row"><?= $product->getId(); ?></th>
           <td><?= $product->getName(); ?></td>
@@ -23,7 +23,7 @@
           <td><?= $product->getDescription(); ?></td>
           <td><?= $product->getCreatedAt(); ?></td>
           <td class="text-right">
-            <a href="" class="btn btn-sm btn-warning">
+            <a href="#" class="btn btn-sm btn-warning">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
             </a>
             <!-- Example single danger button -->
