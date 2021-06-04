@@ -64,9 +64,12 @@
       $pictureProduct = filter_input(INPUT_POST, 'pictureProduct', FILTER_SANITIZE_STRING);
       $priceProduct = filter_input(INPUT_POST, 'priceProduct', FILTER_VALIDATE_FLOAT);
       $rateProduct = filter_input(INPUT_POST, 'rateProduct', FILTER_VALIDATE_INT, ["options" => ["min_range" => 0, "max_range" => 5]]);
+      $statusProduct = filter_input(INPUT_POST, 'statusProduct', FILTER_VALIDATE_INT, ["options" => ["min_range" => 0, "max_range" => 2]]);
       $brandProduct = filter_input(INPUT_POST, 'brandProduct', FILTER_VALIDATE_INT);
       $categoryProduct = filter_input(INPUT_POST, 'categoryProduct', FILTER_VALIDATE_INT);
       $typeProduct = filter_input(INPUT_POST, 'typeProduct', FILTER_VALIDATE_INT);
+
+      /* dd($statusProduct); */
 
       // Instanciation de mon modèle Product
       $newProductModel = new Product();
@@ -77,6 +80,7 @@
       $newProductModel->setPicture($pictureProduct);
       $newProductModel->setPrice($priceProduct);
       $newProductModel->setRate($rateProduct);
+      $newProductModel->setStatus($statusProduct);
       $newProductModel->setBrandId($brandProduct);
       $newProductModel->setCategoryId($categoryProduct);
       $newProductModel->setTypeId($typeProduct);

@@ -20,6 +20,16 @@
       <input type="number" name="rateProduct" class="form-control" id="rate" max="5" min="0">
     </div>
     <div class="form-group">
+        <label for="status">Statut</label>
+        <select class="custom-select" name="statusProduct" id="status" aria-describedby="statusHelpBlock">
+            <option value="0">Inactif</option>
+            <option value="1">Actif</option>
+        </select>
+        <small id="statusHelpBlock" class="form-text text-muted">
+            Le statut du produit 
+        </small>
+    </div>
+    <div class="form-group">
       <label for="brand">Marque</label>
       <?php foreach ($brandList as $brand) : ?>
         <div class="form-check">

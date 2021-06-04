@@ -106,8 +106,8 @@ class Product extends CoreModel {
 
         // Ecriture de la requête INSERT INTO
         $sql = "
-            INSERT INTO `product` (name, description, picture, price, rate, brand_id, category_id, type_id)
-            VALUES ('{$this->name}', '{$this->description}', '{$this->picture}', {$this->price}, {$this->rate}, {$this->brand_id}, {$this->category_id}, {$this->type_id})
+            INSERT INTO `product` (name, description, picture, price, rate, status, brand_id, category_id, type_id)
+            VALUES ('{$this->name}', '{$this->description}', '{$this->picture}', {$this->price}, {$this->rate}, {$this->status}, {$this->brand_id}, {$this->category_id}, {$this->type_id})
         ";
 
         // Execution de la requête d'insertion (exec, pas query)
