@@ -44,21 +44,15 @@ else {
 $router->map(
     'GET',
     '/',
-    [
-        'method' => 'home',
-        'controller' => '\App\Controllers\MainController'
-    ],
+    '\App\Controllers\MainController::home',
     'main-home'
 );
 
 $router->map(
     'GET',
-    '/categories',
-    [
-        'method' => 'categories',
-        'controller' => '\App\Controllers\CatalogController'
-    ],
-    'catalog-categories'
+    '/categorie/liste',
+    '\App\Controllers\CategoryController::list',
+    'category-list'
 );
 
 
