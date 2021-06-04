@@ -56,7 +56,6 @@ $router->map(
 );
 ```
 
-
 ## Route category add
 
 ```php
