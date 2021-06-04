@@ -21,7 +21,7 @@
       // $categoryModel->find(1);
       
       // Class::method grâce à static qui ne lie plus la méthode à l'instance
-      Category::find(1);
+      $category = Category::findAll();
 
       $this->show('category/list');
     }
