@@ -8,8 +8,6 @@
         <th scope="col">Nom</th>
         <th scope="col">Prix</th>
         <th scope="col">Description</th>
-        <th scope="col">Date de mise en ligne</th>
-        <th scope="col">Update</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -21,7 +19,6 @@
           <td><?= $product->getName(); ?></td>
           <td><?= $product->getPrice(); ?>€</td>
           <td><?= $product->getDescription(); ?></td>
-          <td><?= $product->getCreatedAt(); ?></td>
           <td class="text-right">
             <a href="#" class="btn btn-sm btn-warning">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

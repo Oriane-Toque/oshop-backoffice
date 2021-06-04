@@ -83,6 +83,13 @@ $router->map(
     'category-create'
 );
 
+$router->map(
+    'POST',
+    '/product/add',
+    '\App\Controllers\ProductController::create',
+    'product-create'
+);
+
 
 /* -------------
 --- DISPATCH ---
