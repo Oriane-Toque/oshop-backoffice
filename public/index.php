@@ -48,6 +48,9 @@ $router->map(
     'main-home'
 );
 
+//=========================================================
+// ================ ALL ROUTES CATEGORY ===================
+
 // ROUTE VERS LA LISTE DES CATEGORIES
 $router->map(
     'GET',
@@ -63,6 +66,34 @@ $router->map(
     '\App\Controllers\CategoryController::add',
     'category-add'
 );
+
+// AJOUT CATEGORY
+$router->map(
+    'POST',
+    '/category/add',
+    '\App\Controllers\CategoryController::create',
+    'category-create'
+);
+
+// ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE CATEGORIE
+$router->map(
+    'GET',
+    '/category/update/[i:categoryId]',
+    '\App\Controllers\CategoryController::update',
+    'category-update'
+);
+
+// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE CATEGORY
+$router->map(
+    'POST',
+    '/category/update/[i:categoryId]',
+    '\App\Controllers\CategoryController::edit',
+    'category-edit'
+);
+
+
+//=========================================================
+// ================ ALL ROUTES PRODUCTS ===================
 
 // ROUTE VERS LA LISTE DES PRODUITS
 $router->map(
@@ -80,37 +111,12 @@ $router->map(
     'product-add'
 );
 
-/* route pour la soumission du formulaire (ajout categorie) */
-// AJOUT CATEGORY
-$router->map(
-    'POST',
-    '/category/add',
-    '\App\Controllers\CategoryController::create',
-    'category-create'
-);
-
 // AJOUT PRODUIT
 $router->map(
     'POST',
     '/product/add',
     '\App\Controllers\ProductController::create',
     'product-create'
-);
-
-/* ROUTES MODIFICATIONS */
-// ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE CATEGORIE
-$router->map(
-    'GET',
-    '/category/update/[i:categoryId]',
-    '\App\Controllers\CategoryController::update',
-    'category-update'
-);
-// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE
-$router->map(
-    'POST',
-    '/category/update/[i:categoryId]',
-    '\App\Controllers\CategoryController::edit',
-    'category-edit'
 );
 
 // ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE PRODUIT
@@ -120,12 +126,55 @@ $router->map(
     '\App\Controllers\ProductController::update',
     'product-update'
 );
-// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE
+// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE PRODUIT
 $router->map(
     'POST',
     '/product/update/[i:productId]',
     '\App\Controllers\ProductController::edit',
     'product-edit'
+);
+
+
+//=========================================================
+// ================== ALL ROUTES BRANDS ===================
+
+// ROUTE VERS LA LISTE DES MARQUES
+$router->map(
+    'GET',
+    '/brand/list',
+    '\App\Controllers\BrandController::list',
+    'brand-list'
+);
+
+// ROUTE VERS LE FORMULAIRE D'AJOUT MARQUE
+$router->map(
+    'GET',
+    '/brand/add',
+    '\App\Controllers\BrandController::add',
+    'brand-add'
+);
+
+// AJOUT TYPE
+$router->map(
+    'POST',
+    '/brand/add',
+    '\App\Controllers\BrandController::create',
+    'brand-create'
+);
+
+// ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE MARQUE
+$router->map(
+    'GET',
+    '/brand/update/[i:brandId]',
+    '\App\Controllers\BrandController::update',
+    'brand-update'
+);
+// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE MARQUE
+$router->map(
+    'POST',
+    '/brand/update/[i:brandId]',
+    '\App\Controllers\BrandController::edit',
+    'brand-edit'
 );
 
 
