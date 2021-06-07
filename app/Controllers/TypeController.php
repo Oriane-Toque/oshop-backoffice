@@ -102,4 +102,19 @@
       header('Location: ' . $router->generate('type-update', ['typeId' => $routeInfo]));
       exit();
     }
+
+    /**
+     * Method to delete row of type table
+     *
+     * @param [type] $routeInfo
+     * @return void
+     */
+    public function delete($routeInfo) {
+
+      Type::delete($routeInfo);
+
+      global $router;
+      header('Location: ' .$router->generate('type-list'));
+      exit();
+    }
   }
