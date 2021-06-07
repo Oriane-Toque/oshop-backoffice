@@ -103,7 +103,6 @@
 
       $editCategory->update($routeInfo);
 
-
       global $router;
       header('Location: ' . $router->generate('category-update', ['categoryId' => $routeInfo]));
       exit();
