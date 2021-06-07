@@ -36,7 +36,16 @@
      */
     public function add()
     {
-      $this->show('product/add');
+      $brandModel = Brand::findAll();
+      $categoryModel = Category::findAll();
+      $typeModel = Type::findAll();
+
+      $listAllModel['brandList'] = $brandModel;
+      $listAllModel['categoryList'] = $categoryModel;
+      $listAllModel['typeList'] = $typeModel;
+      $listAllModel['titrePage'] = 'Ajouter un produit';
+
+      $this->show('product/add', $listAllModel);
     }
 
     public function create()

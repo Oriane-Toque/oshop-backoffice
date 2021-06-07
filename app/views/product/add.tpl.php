@@ -1,5 +1,5 @@
 <a href="<?= $router->generate('product-list') ?>" class="btn btn-success float-right">Retour</a>
-<h2>Ajouter une catégorie</h2>
+<h2>Ajouter un produit</h2>
 
 <form action="<?= $router->generate('product-add') ?>" method="POST" class="mt-5">
     <div class="form-group">
@@ -32,7 +32,7 @@
     </div>
     <div class="form-group">
         <label for="rate">Note</label>
-        <input type="text" class="form-control" id="rate" name="rate" placeholder="Note" 
+        <input type="number" step="1" min="0" max="5" class="form-control" id="rate" name="rate" placeholder="Note" 
             aria-describedby="rateHelpBlock">
         <small id="rateHelpBlock" class="form-text text-muted">
             Le note du produit 
