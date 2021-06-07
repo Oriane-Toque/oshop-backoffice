@@ -141,11 +141,11 @@
     {
       $pdo = Database::getPDO();
       $sql = '
-              SELECT *
-              FROM category
-              WHERE home_order > 0
-              ORDER BY home_order ASC
-          ';
+                SELECT *
+                FROM category
+                WHERE home_order > 0
+                ORDER BY home_order ASC
+            ';
       $pdoStatement = $pdo->query($sql);
       $categories = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
 
@@ -153,36 +153,63 @@
     }
 
     /**
-     * Méthode permettant d'ajouter un enregistrement dans la table category
-     *
+     * méthode d'insertion en base de données
+     * 
      * @return bool
      */
     public function insert()
     {
-      // TODO
-
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
 
+      /* HELP FROM ADMINER
+          INSERT INTO `category` 
+          (`name`,
+          `subtitle`,
+          `picture`,
+          `home_order`,
+          `created_at`,
+          `updated_at`)
+          VALUES (
+              'JB',
+              'JB',
+              'JB',
+              0, -- valeur par défaut
+              now(), -- valeur par défaut
+              NULL); -- champs nullable
+          */
+
       // Ecriture de la requête INSERT INTO
-      $sql = "
-              INSERT INTO `category` (name, subtitle, picture)
-              VALUES ('{$this->name}', '{$this->subtitle}', '{$this->picture}')
+      // Comme c'est une requete SENSIBLE, on va la préparer avec des placeholders
+      $sql = "INSERT INTO `category` 
+          (
+          `name`,
+          `subtitle`,
+          `picture`
+          )
+          VALUES (
+              :name,
+              :subtitle,
+              :picture
+              );
           ";
 
+      // PDO prend connaissance des placeholder
+      // et nous donne un PDOStatement pour y affecter les valeurs
+      $pdoStatement = $pdo->prepare($sql);
+
+      // On affecte les valeurs à leur placeholder respectifs
+      $pdoStatement->bindValue(':name', $this->name, PDO::PARAM_STR);
+      $pdoStatement->bindValue(':subtitle', $this->subtitle, PDO::PARAM_STR);
+      $pdoStatement->bindValue(':picture', $this->picture, PDO::PARAM_STR);
+
       // Execution de la requête d'insertion (exec, pas query)
-      $insertedRows = $pdo->exec($sql);
+      // $insertedRows = $pdo->exec($sql);
 
-      // Si au moins une ligne ajoutée
-      if ($insertedRows > 0) {
-        // Alors on récupère l'id auto-incrémenté généré par MySQL
-        $this->id = $pdo->lastInsertId();
+      // On execute la requete, on reçoit VRAI si tout c'est bien passés
+      $insertedRow = $pdoStatement->execute();
 
-        // On retourne VRAI car l'ajout a parfaitement fonctionné
-        return true;
-        // => l'interpréteur PHP sort de cette fonction car on a retourné une donnée
-      }
-      // Si on arrive ici, c'est que quelque chose n'a pas bien fonctionné => FAUX
-      return false;
+      // VRAI si la requete a réussi
+      return $insertedRow;
     }
   }

@@ -48,6 +48,7 @@ $router->map(
     'main-home'
 );
 
+// ROUTE VERS LA LISTE DES CATEGORIES
 $router->map(
     'GET',
     '/category/list',
@@ -55,6 +56,7 @@ $router->map(
     'category-list'
 );
 
+// ROUTE VERS LE FORMULAIRE D'AJOUT CATEGORIE
 $router->map(
     'GET',
     '/category/add',
@@ -62,6 +64,7 @@ $router->map(
     'category-add'
 );
 
+// ROUTE VERS LA LISTE DES PRODUITS
 $router->map(
     'GET',
     '/product/list',
@@ -69,6 +72,7 @@ $router->map(
     'product-list'
 );
 
+// ROUTE VERS LE FORMULAIRE D'AJOUT PRODUIT
 $router->map(
     'GET',
     '/product/add',
@@ -77,6 +81,7 @@ $router->map(
 );
 
 /* route pour la soumission du formulaire (ajout categorie) */
+// AJOUT CATEGORY
 $router->map(
     'POST',
     '/category/add',
@@ -84,6 +89,7 @@ $router->map(
     'category-create'
 );
 
+// AJOUT PRODUIT
 $router->map(
     'POST',
     '/product/add',

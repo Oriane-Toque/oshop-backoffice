@@ -30,68 +30,52 @@
     }
 
     /**
-     * Method to display add product page
+     * Ajout d'un produit.
      *
-     * @return void 
+     * @return void
      */
     public function add()
     {
-
-      $brandModel = Brand::findAll();
-      $categoryModel = Category::findAll();
-      $typeModel = Type::findAll();
-
-      $listAllModel['brandList'] = $brandModel;
-      $listAllModel['categoryList'] = $categoryModel;
-      $listAllModel['typeList'] = $typeModel;
-      $listAllModel['titrePage'] = 'Ajouter un produit';
-
-      $this->show('product/add', $listAllModel);
+      $this->show('product/add');
     }
 
-    /**
-     * Method to add product
-     *
-     * @return void 
-     */
     public function create()
     {
+      // je dois récuperer les données dans $_POST
+      // 1ere solution : $name = $_POST['name']
+      // 2eme solution : $name = filter_input(INPUT_POST, 'name');
+      // 3eme solution : $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+      $picture = filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING);
+      $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
+      $rate = filter_input(INPUT_POST, 'rate', FILTER_VALIDATE_INT);
+      $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+      $category_id = filter_input(INPUT_POST, 'category', FILTER_VALIDATE_INT);
+      //var_dump($_POST['brand']);
+      $brand_id = filter_input(INPUT_POST, 'brand', FILTER_VALIDATE_INT);
+      $type_id = filter_input(INPUT_POST, 'type', FILTER_VALIDATE_INT);
 
-      // dd($_POST);
-      /*===========RECUPERATION DES DONNEES DU FORMULAIRE + FILTRES DE NETTOYAGES===========*/
-      $nameProduct = filter_input(INPUT_POST, 'nameProduct', FILTER_SANITIZE_STRING);
-      $descriptionProduct = filter_input(INPUT_POST, 'descriptionProduct', FILTER_SANITIZE_STRING);
-      $pictureProduct = filter_input(INPUT_POST, 'pictureProduct', FILTER_SANITIZE_STRING);
-      $priceProduct = filter_input(INPUT_POST, 'priceProduct', FILTER_VALIDATE_FLOAT);
-      $rateProduct = filter_input(INPUT_POST, 'rateProduct', FILTER_VALIDATE_INT, ["options" => ["min_range" => 0, "max_range" => 5]]);
-      $statusProduct = filter_input(INPUT_POST, 'statusProduct', FILTER_VALIDATE_INT, ["options" => ["min_range" => 0, "max_range" => 2]]);
-      $brandProduct = filter_input(INPUT_POST, 'brandProduct', FILTER_VALIDATE_INT);
-      $categoryProduct = filter_input(INPUT_POST, 'categoryProduct', FILTER_VALIDATE_INT);
-      $typeProduct = filter_input(INPUT_POST, 'typeProduct', FILTER_VALIDATE_INT);
+      // je creer un nouveau Model
+      $nouveauProduit = new Product();
+      $nouveauProduit->setName($name);
+      $nouveauProduit->setDescription($description);
+      $nouveauProduit->setPicture($picture);
+      $nouveauProduit->setPrice($price);
+      $nouveauProduit->setRate($rate);
+      $nouveauProduit->setStatus($status);
+      $nouveauProduit->setCategoryId($category_id);
+      // var_dump($brand_id)
+      $nouveauProduit->setBrandId($brand_id);
+      $nouveauProduit->setTypeId($type_id);
 
-      /* dd($statusProduct); */
+      // on insere en base de données
+      $nouveauProduit->insert();
 
-      // Instanciation de mon modèle Product
-      $newProductModel = new Product();
-
-      //=================ATTRIBUTION DES VALEURS DU FORMULAIRE VIA MES SETTERS==============*/
-      $newProductModel->setName($nameProduct);
-      $newProductModel->setDescription($descriptionProduct);
-      $newProductModel->setPicture($pictureProduct);
-      $newProductModel->setPrice($priceProduct);
-      $newProductModel->setRate($rateProduct);
-      $newProductModel->setStatus($statusProduct);
-      $newProductModel->setBrandId($brandProduct);
-      $newProductModel->setCategoryId($categoryProduct);
-      $newProductModel->setTypeId($typeProduct);
-      // dd($newProductModel);
-
-      // Appel de ma méthod insert() pour ajouter mon nouveau produit
-      $newProductModel->insert();
-
-      //===================REORIENTATION VERS LA PAGE product/list=========================*/
-
-      header('Location:list');
-      exit();
-    }   
-}
+      // redirige sur le HOME
+      // header('Location: /');
+      // utilise le routeur, mais utiliser aussi global :'(
+      global $router;
+      header('Location: ' . $router->generate('product-list'));
+    }
+  }

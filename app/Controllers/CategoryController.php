@@ -32,45 +32,46 @@
     }
 
     /**
-     * Method to display add category page
+     * Ajout d'une catégorie.
      *
-     * @return void 
+     * @return void
      */
     public function add()
     {
-
       $this->show('category/add');
     }
-
     /**
-     * Method to add category
-     *
-     * @return void 
+     * Création d'une catégorie
+     * 
+     * @return void
      */
     public function create()
     {
 
-      // dd($_POST);
-      /*===========RECUPERATION DES DONNEES DU FORMULAIRE + FILTRES DE NETTOYAGES===========*/
-      $nameCategory = filter_input(INPUT_POST, 'nameCategory', FILTER_SANITIZE_STRING);
-      $subtitleCategory = filter_input(INPUT_POST, 'subtitleCategory', FILTER_SANITIZE_STRING);
-      $pictureCategory = filter_input(INPUT_POST, 'pictureCategory');
+      // je dois récuperer les données dans $_POST
+      // 1ere solution : $name = $_POST['name']
+      // 2eme solution : $name = filter_input(INPUT_POST, 'name');
+      // 3eme solution : $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      $subtitle = filter_input(INPUT_POST, 'subtitle', FILTER_SANITIZE_STRING);
+      $picture = filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_URL);
 
-      // Instanciation de mon modèle Category
-      $newCategoryModel = new Category();
+      // je dois créer un nouveau model et lui donner les infos
+      $newCategory = new Category();
+      $newCategory->setName($name);
+      $newCategory->setSubtitle($subtitle);
+      $newCategory->setPicture($picture);
 
-      //=================ATTRIBUTION DES VALEURS DU FORMULAIRE VIA MES SETTERS==============*/
-      $newCategoryModel->setName($nameCategory);
-      $newCategoryModel->setSubtitle($subtitleCategory);
-      $newCategoryModel->setPicture($pictureCategory);
-      // dd($newCategoryModel);
+      // je dois inserer mon model en base
+      $newCategory->insert();
 
-      // Appel de ma méthod insert() pour ajouter ma nouvelle catégorie
-      $newCategoryModel->insert();
+      //dd($_POST);
+      // redirige sur le HOME
+      // header('Location: /');
+      // utilise le routeur, mais utiliser aussi global :'(
+      global $router;
 
-      //===================REORIENTATION VERS LA PAGE category/list=========================*/
 
-      header('Location:list');
-      exit();
+      header('Location: ' . $router->generate('category-list'));
     }
-}
+  }
