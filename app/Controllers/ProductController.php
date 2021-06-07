@@ -144,4 +144,19 @@
       header('Location: ' .$router->generate('product-update', ['productId' => $routeInfo]));
       exit();
     }
+
+    /**
+     * Method to delete row of product table
+     *
+     * @param [type] $routeInfo
+     * @return void
+     */
+    public function delete($routeInfo) {
+
+      Product::delete($routeInfo);
+
+      global $router;
+      header('Location: ' .$router->generate('product-list'));
+      exit();
+    }
   }
