@@ -99,25 +99,18 @@
 
       // Ecriture de la requête INSERT INTO
       $sql = "
-              INSERT INTO `brand` (name, footer_order)
-              VALUES ('{$this->name}', {$this->footer_order})
+              INSERT INTO `brand` (name)
+              VALUES (:name)
           ";
+      
+      $pdoStatement = $pdo->prepare($sql);
+
+      $pdoStatement->bindValue(':name', $this->name, PDO::PARAM_STR);
 
       // Execution de la requête d'insertion (exec, pas query)
-      $insertedRows = $pdo->exec($sql);
+      $insertedRows = $pdoStatement->execute();
 
-      // Si au moins une ligne ajoutée
-      if ($insertedRows > 0) {
-        // Alors on récupère l'id auto-incrémenté généré par MySQL
-        $this->id = $pdo->lastInsertId();
-
-        // On retourne VRAI car l'ajout a parfaitement fonctionné
-        return true;
-        // => l'interpréteur PHP sort de cette fonction car on a retourné une donnée
-      }
-
-      // Si on arrive ici, c'est que quelque chose n'a pas bien fonctionné => FAUX
-      return false;
+      return $insertedRows;
     }
 
     /**
@@ -126,7 +119,7 @@
      * 
      * @return bool
      */
-    public function update()
+    public function update($id)
     {
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
@@ -135,17 +128,20 @@
       $sql = "
               UPDATE `brand`
               SET
-                  name = '{$this->name}',
-                  footer_order = {$this->footer_order},
+                  name = :name,
                   updated_at = NOW()
-              WHERE id = {$this->id}
+              WHERE id = :id
           ";
+      
+      $pdoStatement = $pdo->prepare($sql);
+
+      $pdoStatement->bindValue(':name', $this->name, PDO::PARAM_STR);
+      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
 
       // Execution de la requête de mise à jour (exec, pas query)
-      $updatedRows = $pdo->exec($sql);
+      $updatedRows = $pdoStatement->execute();
 
-      // On retourne VRAI, si au moins une ligne ajoutée
-      return ($updatedRows > 0);
+      return $updatedRows;
     }
 
     /**

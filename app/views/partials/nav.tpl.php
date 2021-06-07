@@ -20,7 +20,7 @@
           <a class="nav-link" href="#">Types</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Marques</a>
+          <a class="nav-link" href="<?= $router->generate('brand-list'); ?>">Marques</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Tags</a>
