@@ -43,6 +43,7 @@
 
       $this->show('category/add', $categoryData);
     }
+
     /**
      * Création d'une catégorie
      * 
@@ -77,6 +78,11 @@
       exit();
     }
 
+    /**
+     * Data's form
+     * 
+     * @return void
+     */
     public function update($routeInfo) {
 
       // je récupère toutes les données de ma catégorie selon son id contenu dans $routeInfo
@@ -90,6 +96,11 @@
       $this->show('category/update', $categoryData);
     }
 
+    /**
+     * Edit category
+     * 
+     * @return void
+     */
     public function edit($routeInfo) {
 
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
