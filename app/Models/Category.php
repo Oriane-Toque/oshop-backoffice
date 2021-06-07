@@ -137,19 +137,19 @@
      * 
      * @return Category[]
      */
-    public static function findAllHomepage()
+    public static function findAllHomePage()
     {
-      $pdo = Database::getPDO();
-      $sql = '
-                SELECT *
-                FROM category
-                WHERE home_order > 0
-                ORDER BY home_order ASC
-            ';
-      $pdoStatement = $pdo->query($sql);
-      $categories = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
-
-      return $categories;
+        $pdo = Database::getPDO();
+        $sql = '
+            SELECT *
+            FROM category
+            WHERE home_order > 0
+            ORDER BY home_order ASC
+        ';
+        $pdoStatement = $pdo->query($sql);
+        $categories = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
+        
+        return $categories;
     }
 
     /**
@@ -211,5 +211,43 @@
 
       // VRAI si la requete a réussi
       return $insertedRow;
+    }
+
+    /**
+     * Méthode permettant de mettre à jour un enregistrement dans la table category
+     * L'objet courant doit contenir l'id, et toutes les données à ajouter : 1 propriété => 1 colonne dans la table
+     * 
+     * @return bool
+     */
+    public function update($id)
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête UPDATE
+        $sql = "
+            UPDATE `category`
+            SET
+                name = :name,
+                subtitle = :subtitle,
+                picture = :picture,
+                updated_at = NOW()
+            WHERE id = :id
+        ";
+
+      // PDO prend connaissance des placeholder
+      // et nous donne un PDOStatement pour y affecter les valeurs
+      $pdoStatement = $pdo->prepare($sql);
+
+      // On affecte les valeurs à leur placeholder respectifs
+      $pdoStatement->bindValue(':name', $this->name, PDO::PARAM_STR);
+      $pdoStatement->bindValue(':subtitle', $this->subtitle, PDO::PARAM_STR);
+      $pdoStatement->bindValue(':picture', $this->picture, PDO::PARAM_STR);
+      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+
+      $updatedRows = $pdoStatement->execute();
+
+      // retourne vrai si la requête
+      return $updatedRows;
     }
   }

@@ -70,9 +70,8 @@
       // header('Location: /');
       // utilise le routeur, mais utiliser aussi global :'(
       global $router;
-
-
       header('Location: ' . $router->generate('category-list'));
+      exit();
     }
 
     public function update($routeInfo) {
@@ -93,6 +92,20 @@
       $subtitle = filter_input(INPUT_POST, 'subtitle', FILTER_SANITIZE_STRING);
       $picture = filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_URL);
 
-      dump($name);
+      // dump($name);
+
+      $editCategory = new Category();
+      // modification des propriétés liées à l'instance
+      // affectation des données du formulaire
+      $editCategory->setName($name);
+      $editCategory->setSubtitle($subtitle);
+      $editCategory->setPicture($picture);
+
+      $editCategory->update($routeInfo);
+
+
+      global $router;
+      header('Location: ' . $router->generate('category-update', ['categoryId' => $routeInfo]));
+      exit();
     }
   }
