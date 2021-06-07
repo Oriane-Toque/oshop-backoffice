@@ -1,7 +1,7 @@
 <a href="<?= $router->generate('category-list') ?>" class="btn btn-success float-right">Retour</a>
 <h2>Modifier une catégorie</h2>
 
-<form action="<?= $router->generate('category-update'); ?>" method="POST" class="mt-5">
+<form action="<?= $router->generate('category-update', ['categoryId' => $category->getId()]); ?>" method="POST" class="mt-5">
     <div class="form-group">
         <label for="name">Nom</label>
         <input type="text" name="name" id="name" class="form-control" placeholder="Nom de la catégorie" value="<?= $category->getName(); ?>">

@@ -77,11 +77,22 @@
 
     public function update($routeInfo) {
 
+      // je récupère toutes les données de ma catégorie selon son id contenu dans $routeInfo
       $categoryModel = Category::find($routeInfo);
+      // je stocke les information de la catégorie selectionnait par l'admin
       $categoryData['category'] = $categoryModel;
 
-      dump($categoryData);
+      // dump($categoryData);
 
       $this->show('category/update', $categoryData);
+    }
+
+    public function edit($routeInfo) {
+
+      $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      $subtitle = filter_input(INPUT_POST, 'subtitle', FILTER_SANITIZE_STRING);
+      $picture = filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_URL);
+
+      dump($name);
     }
   }
