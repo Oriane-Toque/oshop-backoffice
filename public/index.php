@@ -94,7 +94,7 @@ $router->map(
 // ROUTE POUR LA SUPPRESSION D'UNE CATEGORIE
 $router->map(
     'GET',
-    'category/delete/[i:categoryId]',
+    '/category/delete/[i:categoryId]',
     '\App\Controllers\CategoryController::delete',
     'category-delete'
 );
@@ -146,7 +146,7 @@ $router->map(
 // ROUTE POUR LA SUPPRESSION D'UN PRODUIT
 $router->map(
     'GET',
-    'product/delete/[i:productId]',
+    '/product/delete/[i:productId]',
     '\App\Controllers\ProductController::delete',
     'product-delete'
 );
@@ -198,7 +198,7 @@ $router->map(
 // ROUTE POUR LA SUPPRESSION D'UNE MARQUE
 $router->map(
     'GET',
-    'brand/delete/[i:brandId]',
+    '/brand/delete/[i:brandId]',
     '\App\Controllers\BrandController::delete',
     'brand-delete'
 );
@@ -250,7 +250,7 @@ $router->map(
 // ROUTE POUR LA SUPPRESSION D'UN TYPE
 $router->map(
     'GET',
-    'type/delete/[i:typeId]',
+    '/type/delete/[i:typeId]',
     '\App\Controllers\TypeController::delete',
     'type-delete'
 );

@@ -145,6 +145,31 @@
     }
 
     /**
+     * Méthode permettant de supprimer une ligne de la table brand
+     * 
+     * @return bool
+     */
+    public function delete($id)
+    {
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
+
+      // Ecriture de la requête UPDATE
+      $sql = "
+              DELETE FROM brand
+              WHERE id = :id
+          ";
+      
+      $pdoStatement = $pdo->prepare($sql);
+      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+
+      // Execution de la requête de mise à jour (exec, pas query)
+      $deleteRow = $pdoStatement->execute();
+
+      return $deleteRow;
+    }
+
+    /**
      * Get the value of name
      *
      * @return  string

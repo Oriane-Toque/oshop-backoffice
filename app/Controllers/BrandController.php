@@ -102,4 +102,15 @@
       header('Location: ' . $router->generate('brand-update', ['brandId' => $routeInfo]));
       exit();
     }
+
+    public function delete($routeInfo) {
+
+      $deleteBrand = new Brand();
+
+      $deleteBrand->delete($routeInfo);
+
+      global $router;
+      header('Location: ' .$router->generate('brand-list'));
+      exit();
+    }
   }
