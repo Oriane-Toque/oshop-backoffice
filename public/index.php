@@ -178,6 +178,49 @@ $router->map(
 );
 
 
+//=========================================================
+// ================== ALL ROUTES TYPES ===================
+
+// ROUTE VERS LA LISTE DES TYPES
+$router->map(
+    'GET',
+    '/type/list',
+    '\App\Controllers\TypeController::list',
+    'type-list'
+);
+
+// ROUTE VERS LE FORMULAIRE D'AJOUT TYPE
+$router->map(
+    'GET',
+    '/type/add',
+    '\App\Controllers\TypeController::add',
+    'type-add'
+);
+
+// AJOUT TYPE
+$router->map(
+    'POST',
+    '/type/add',
+    '\App\Controllers\TypeController::create',
+    'type-create'
+);
+
+// ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE TYPE
+$router->map(
+    'GET',
+    '/type/update/[i:typeId]',
+    '\App\Controllers\TypeController::update',
+    'type-update'
+);
+// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE TYPE
+$router->map(
+    'POST',
+    '/type/update/[i:typeId]',
+    '\App\Controllers\TypeController::edit',
+    'type-edit'
+);
+
+
 /* -------------
 --- DISPATCH ---
 --------------*/

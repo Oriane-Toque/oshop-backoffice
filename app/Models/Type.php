@@ -83,6 +83,64 @@ class Type extends CoreModel {
     }
 
     /**
+     * Méthode permettant d'ajouter un enregistrement dans la table type
+     * L'objet courant doit contenir toutes les données à ajouter : 1 propriété => 1 colonne dans la table
+     * 
+     * @return bool
+     */
+    public function insert()
+    {
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
+
+      // Ecriture de la requête INSERT INTO
+      $sql = "
+              INSERT INTO `type` (name)
+              VALUES (:name)
+          ";
+      
+      $pdoStatement = $pdo->prepare($sql);
+
+      $pdoStatement->bindValue(':name', $this->name, PDO::PARAM_STR);
+
+      // Execution de la requête d'insertion (exec, pas query)
+      $insertedRows = $pdoStatement->execute();
+
+      return $insertedRows;
+    }
+
+    /**
+     * Méthode permettant de mettre à jour un enregistrement dans la table type
+     * L'objet courant doit contenir l'id, et toutes les données à ajouter : 1 propriété => 1 colonne dans la table
+     * 
+     * @return bool
+     */
+    public function update($id)
+    {
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
+
+      // Ecriture de la requête UPDATE
+      $sql = "
+              UPDATE `type`
+              SET
+                  name = :name,
+                  updated_at = NOW()
+              WHERE id = :id
+          ";
+      
+      $pdoStatement = $pdo->prepare($sql);
+
+      $pdoStatement->bindValue(':name', $this->name, PDO::PARAM_STR);
+      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+
+      // Execution de la requête de mise à jour (exec, pas query)
+      $updatedRows = $pdoStatement->execute();
+
+      return $updatedRows;
+    }
+
+    /**
      * Get the value of name
      *
      * @return  string
