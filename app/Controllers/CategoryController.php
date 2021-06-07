@@ -74,4 +74,14 @@
 
       header('Location: ' . $router->generate('category-list'));
     }
+
+    public function update($routeInfo) {
+
+      $categoryModel = Category::find($routeInfo);
+      $categoryData['category'] = $categoryModel;
+
+      dump($categoryData);
+
+      $this->show('category/update', $categoryData);
+    }
   }

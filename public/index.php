@@ -97,6 +97,22 @@ $router->map(
     'product-create'
 );
 
+/* ROUTES MODIFICATIONS */
+// ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE CATEGORIE
+$router->map(
+    'GET',
+    '/category/update/[i:categoryId]',
+    '\App\Controllers\CategoryController::update',
+    'category-update'
+);
+
+$router->map(
+    'POST',
+    '/category/update/[i:categoryId]',
+    '\App\Controllers\CategoryController::edit',
+    'category-edit'
+);
+
 
 /* -------------
 --- DISPATCH ---

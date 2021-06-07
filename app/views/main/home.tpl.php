@@ -19,10 +19,10 @@
             <tbody>
               <?php foreach ($categoryList as $category) : ?>
                 <tr>
-                  <th scope="row"><?= $category->getId() ?></th>
+                  <th scope="row"><?= $category->getHomeOrder() ?></th>
                   <td><?= $category->getName() ?></td>
                   <td class="text-right">
-                    <a href="#" class="btn btn-sm btn-warning">
+                    <a href="<?= $router->generate('category-update', ['categoryId' => $category->getId()]); ?>" class="btn btn-sm btn-warning">
                       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </a>
                     <!-- Example single danger button -->
