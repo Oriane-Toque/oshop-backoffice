@@ -91,6 +91,14 @@ $router->map(
     'category-edit'
 );
 
+// ROUTE POUR LA SUPPRESSION D'UNE CATEGORIE
+$router->map(
+    'GET',
+    'category/delete/[i:categoryId]',
+    '\App\Controllers\CategoryController::delete',
+    'category-delete'
+);
+
 
 //=========================================================
 // ================ ALL ROUTES PRODUCTS ===================
@@ -126,12 +134,21 @@ $router->map(
     '\App\Controllers\ProductController::update',
     'product-update'
 );
+
 // ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE PRODUIT
 $router->map(
     'POST',
     '/product/update/[i:productId]',
     '\App\Controllers\ProductController::edit',
     'product-edit'
+);
+
+// ROUTE POUR LA SUPPRESSION D'UN PRODUIT
+$router->map(
+    'GET',
+    'product/delete/[i:productId]',
+    '\App\Controllers\ProductController::delete',
+    'product-delete'
 );
 
 
@@ -169,12 +186,21 @@ $router->map(
     '\App\Controllers\BrandController::update',
     'brand-update'
 );
+
 // ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE MARQUE
 $router->map(
     'POST',
     '/brand/update/[i:brandId]',
     '\App\Controllers\BrandController::edit',
     'brand-edit'
+);
+
+// ROUTE POUR LA SUPPRESSION D'UNE MARQUE
+$router->map(
+    'GET',
+    'brand/delete/[i:brandId]',
+    '\App\Controllers\BrandController::delete',
+    'brand-delete'
 );
 
 
@@ -212,12 +238,21 @@ $router->map(
     '\App\Controllers\TypeController::update',
     'type-update'
 );
+
 // ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE TYPE
 $router->map(
     'POST',
     '/type/update/[i:typeId]',
     '\App\Controllers\TypeController::edit',
     'type-edit'
+);
+
+// ROUTE POUR LA SUPPRESSION D'UN TYPE
+$router->map(
+    'GET',
+    'type/delete/[i:typeId]',
+    '\App\Controllers\TypeController::delete',
+    'type-delete'
 );
 
 
