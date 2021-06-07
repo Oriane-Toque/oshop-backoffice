@@ -4,7 +4,7 @@
 <form action="<?= $router->generate('type-add') ?>" method="POST" class="mt-5">
     <div class="form-group">
         <label for="name">Nom</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Nom de la catégorie">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Nom du type">
     </div>
 
     <button type="submit" class="btn btn-primary btn-block mt-5">Valider</button>
