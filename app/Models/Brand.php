@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Models;
+  namespace App\Models;
 
-use App\Utils\Database;
-use PDO;
+  use App\Utils\Database;
+  use PDO;
 
-/**
- * Un modèle représente une table (un entité) dans notre base
- * 
- * Un objet issu de cette classe réprésente un enregistrement dans cette table
- */
-class Brand extends CoreModel {
+  /**
+   * Un modèle représente une table (un entité) dans notre base
+   * 
+   * Un objet issu de cette classe réprésente un enregistrement dans cette table
+   */
+  class Brand extends CoreModel
+  {
     // Les propriétés représentent les champs
     // Attention il faut que les propriétés aient le même nom (précisément) que les colonnes de la table
-    
+
     /**
      * @var string
      */
@@ -31,23 +32,23 @@ class Brand extends CoreModel {
      */
     public static function find($brandId)
     {
-        // se connecter à la BDD
-        $pdo = Database::getPDO();
+      // se connecter à la BDD
+      $pdo = Database::getPDO();
 
-        // écrire notre requête
-        $sql = '
-            SELECT *
-            FROM brand
-            WHERE id = ' . $brandId;
+      // écrire notre requête
+      $sql = '
+              SELECT *
+              FROM brand
+              WHERE id = ' . $brandId;
 
-        // exécuter notre requête
-        $pdoStatement = $pdo->query($sql);
+      // exécuter notre requête
+      $pdoStatement = $pdo->query($sql);
 
-        // un seul résultat => fetchObject
-        $brand = $pdoStatement->fetchObject('App\Models\Brand');
+      // un seul résultat => fetchObject
+      $brand = $pdoStatement->fetchObject('App\Models\Brand');
 
-        // retourner le résultat
-        return $brand;
+      // retourner le résultat
+      return $brand;
     }
 
     /**
@@ -57,12 +58,12 @@ class Brand extends CoreModel {
      */
     public static function findAll()
     {
-        $pdo = Database::getPDO();
-        $sql = 'SELECT * FROM `brand`';
-        $pdoStatement = $pdo->query($sql);
-        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Brand');
-        
-        return $results;
+      $pdo = Database::getPDO();
+      $sql = 'SELECT * FROM `brand`';
+      $pdoStatement = $pdo->query($sql);
+      $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Brand');
+
+      return $results;
     }
 
     /**
@@ -72,17 +73,17 @@ class Brand extends CoreModel {
      */
     public static function findAllFooter()
     {
-        $pdo = Database::getPDO();
-        $sql = '
-            SELECT *
-            FROM brand
-            WHERE footer_order > 0
-            ORDER BY footer_order ASC
-        ';
-        $pdoStatement = $pdo->query($sql);
-        $brands = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Brand');
-        
-        return $brands;
+      $pdo = Database::getPDO();
+      $sql = '
+              SELECT *
+              FROM brand
+              WHERE footer_order > 0
+              ORDER BY footer_order ASC
+          ';
+      $pdoStatement = $pdo->query($sql);
+      $brands = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Brand');
+
+      return $brands;
     }
 
     /**
@@ -93,30 +94,30 @@ class Brand extends CoreModel {
      */
     public function insert()
     {
-        // Récupération de l'objet PDO représentant la connexion à la DB
-        $pdo = Database::getPDO();
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
 
-        // Ecriture de la requête INSERT INTO
-        $sql = "
-            INSERT INTO `brand` (name, footer_order)
-            VALUES ('{$this->name}', {$this->footer_order})
-        ";
+      // Ecriture de la requête INSERT INTO
+      $sql = "
+              INSERT INTO `brand` (name, footer_order)
+              VALUES ('{$this->name}', {$this->footer_order})
+          ";
 
-        // Execution de la requête d'insertion (exec, pas query)
-        $insertedRows = $pdo->exec($sql);
+      // Execution de la requête d'insertion (exec, pas query)
+      $insertedRows = $pdo->exec($sql);
 
-        // Si au moins une ligne ajoutée
-        if ($insertedRows > 0) {
-            // Alors on récupère l'id auto-incrémenté généré par MySQL
-            $this->id = $pdo->lastInsertId();
+      // Si au moins une ligne ajoutée
+      if ($insertedRows > 0) {
+        // Alors on récupère l'id auto-incrémenté généré par MySQL
+        $this->id = $pdo->lastInsertId();
 
-            // On retourne VRAI car l'ajout a parfaitement fonctionné
-            return true;
-            // => l'interpréteur PHP sort de cette fonction car on a retourné une donnée
-        }
-        
-        // Si on arrive ici, c'est que quelque chose n'a pas bien fonctionné => FAUX
-        return false;
+        // On retourne VRAI car l'ajout a parfaitement fonctionné
+        return true;
+        // => l'interpréteur PHP sort de cette fonction car on a retourné une donnée
+      }
+
+      // Si on arrive ici, c'est que quelque chose n'a pas bien fonctionné => FAUX
+      return false;
     }
 
     /**
@@ -127,63 +128,63 @@ class Brand extends CoreModel {
      */
     public function update()
     {
-        // Récupération de l'objet PDO représentant la connexion à la DB
-        $pdo = Database::getPDO();
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
 
-        // Ecriture de la requête UPDATE
-        $sql = "
-            UPDATE `brand`
-            SET
-                name = '{$this->name}',
-                footer_order = {$this->footer_order},
-                updated_at = NOW()
-            WHERE id = {$this->id}
-        ";
+      // Ecriture de la requête UPDATE
+      $sql = "
+              UPDATE `brand`
+              SET
+                  name = '{$this->name}',
+                  footer_order = {$this->footer_order},
+                  updated_at = NOW()
+              WHERE id = {$this->id}
+          ";
 
-        // Execution de la requête de mise à jour (exec, pas query)
-        $updatedRows = $pdo->exec($sql);
+      // Execution de la requête de mise à jour (exec, pas query)
+      $updatedRows = $pdo->exec($sql);
 
-        // On retourne VRAI, si au moins une ligne ajoutée
-        return ($updatedRows > 0);
+      // On retourne VRAI, si au moins une ligne ajoutée
+      return ($updatedRows > 0);
     }
 
     /**
      * Get the value of name
      *
      * @return  string
-     */ 
+     */
     public function getName()
     {
-        return $this->name;
+      return $this->name;
     }
 
     /**
      * Set the value of name
      *
      * @param  string  $name
-     */ 
+     */
     public function setName(string $name)
     {
-        $this->name = $name;
+      $this->name = $name;
     }
 
     /**
      * Get the value of footer_order
      *
      * @return  int
-     */ 
+     */
     public function getFooterOrder()
     {
-        return $this->footer_order;
+      return $this->footer_order;
     }
 
     /**
      * Set the value of footer_order
      *
      * @param  int  $footer_order
-     */ 
+     */
     public function setFooterOrder(int $footer_order)
     {
-        $this->footer_order = $footer_order;
+      $this->footer_order = $footer_order;
     }
-}
+  }

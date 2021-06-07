@@ -14,7 +14,7 @@
     /**
      * Method to display categories list
      *
-     * @return void 
+     * @return void
      */
     public function list()
     {
@@ -66,25 +66,82 @@
       $type_id = filter_input(INPUT_POST, 'type', FILTER_VALIDATE_INT);
 
       // je creer un nouveau Model
-      $nouveauProduit = new Product();
-      $nouveauProduit->setName($name);
-      $nouveauProduit->setDescription($description);
-      $nouveauProduit->setPicture($picture);
-      $nouveauProduit->setPrice($price);
-      $nouveauProduit->setRate($rate);
-      $nouveauProduit->setStatus($status);
-      $nouveauProduit->setCategoryId($category_id);
+      $newProduct = new Product();
+      $newProduct->setName($name);
+      $newProduct->setDescription($description);
+      $newProduct->setPicture($picture);
+      $newProduct->setPrice($price);
+      $newProduct->setRate($rate);
+      $newProduct->setStatus($status);
+      $newProduct->setCategoryId($category_id);
       // var_dump($brand_id)
-      $nouveauProduit->setBrandId($brand_id);
-      $nouveauProduit->setTypeId($type_id);
+      $newProduct->setBrandId($brand_id);
+      $newProduct->setTypeId($type_id);
 
       // on insere en base de données
-      $nouveauProduit->insert();
+      $newProduct->insert();
 
       // redirige sur le HOME
       // header('Location: /');
       // utilise le routeur, mais utiliser aussi global :'(
       global $router;
       header('Location: ' . $router->generate('product-list'));
+    }
+
+    public function update($routeInfo)
+    {
+
+      // récupération des données du produit sélectionné
+      $productModel = Product::find($routeInfo);
+
+      // pour la dynamisation des selects
+      // liste des marques, catégories et types
+      $brandModel = Brand::findAll();
+      $categoryModel = Category::findAll();
+      $typeModel = Type::findAll();
+
+      // stockage de nos données dans un tableau dont les clés seront nos variables
+      $productData['product'] = $productModel;
+      $productData['brandList'] = $brandModel;
+      $productData['categoryList'] = $categoryModel;
+      $productData['typeList'] = $typeModel;
+      $productData['titrePage'] = 'Modifier un produit';
+
+      // dump($productData);
+
+      $this->show('product/update', $productData);
+    }
+
+    public function edit($routeInfo)
+    {
+      // récupération des valeurs du formulaire
+      $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+      $picture = filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING);
+      $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
+      $rate = filter_input(INPUT_POST, 'rate', FILTER_VALIDATE_INT);
+      $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+      $category_id = filter_input(INPUT_POST, 'category', FILTER_VALIDATE_INT);
+      $brand_id = filter_input(INPUT_POST, 'brand', FILTER_VALIDATE_INT);
+      $type_id = filter_input(INPUT_POST, 'type', FILTER_VALIDATE_INT);
+
+      // instanciation de notre model Product
+      $editProduct = new Product();
+      // modification des propriétés de l'instanciation
+      $editProduct->setName($name);
+      $editProduct->setDescription($description);
+      $editProduct->setPicture($picture);
+      $editProduct->setPrice($price);
+      $editProduct->setRate($rate);
+      $editProduct->setStatus($status);
+      $editProduct->setCategoryId($category_id);
+      $editProduct->setBrandId($brand_id);
+      $editProduct->setTypeId($type_id);
+
+      $editProduct->update($routeInfo);
+
+      global $router;
+      header('Location: ' .$router->generate('product-update', ['productId' => $routeInfo]));
+      exit();
     }
   }

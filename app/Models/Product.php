@@ -62,9 +62,9 @@
 
       // on écrit la requête SQL pour récupérer le produit
       $sql = '
-              SELECT *
-              FROM product
-              WHERE id = ' . $productId;
+                SELECT *
+                FROM product
+                WHERE id = ' . $productId;
 
       // query ? exec ?
       // On fait de la LECTURE = une récupration => query()
@@ -101,29 +101,29 @@
 
       // Ecriture de la requête INSERT INTO
       $sql = "
-              INSERT INTO `product` (
-                `name`,
-                `description`,
-                `picture`,
-                `price`,
-                `rate`,
-                `status`,
-                `brand_id`,
-                `category_id`,
-                `type_id`
-              )
-              VALUES (
-                :name,
-                :description,
-                :picture,
-                :price,
-                :rate,
-                :status,
-                :brand_id,
-                :category_id,
-                :type_id
-              )
-          ";
+                INSERT INTO `product` (
+                  `name`,
+                  `description`,
+                  `picture`,
+                  `price`,
+                  `rate`,
+                  `status`,
+                  `brand_id`,
+                  `category_id`,
+                  `type_id`
+                )
+                VALUES (
+                  :name,
+                  :description,
+                  :picture,
+                  :price,
+                  :rate,
+                  :status,
+                  :brand_id,
+                  :category_id,
+                  :type_id
+                )
+            ";
 
       // PDO prend connaissance des placeholder
       // et nous donne un PDOStatement pour y affecter les valeurs
@@ -143,6 +143,55 @@
       $insertedRow = $pdoStatement->execute();
 
       return $insertedRow;
+    }
+
+    /**
+     * Méthode permettant de mettre à jour un enregistrement dans la table product
+     * 
+     * @return bool
+     */
+    public function update($id)
+    {
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
+
+      // Ecriture de la requête UPDATE
+      $sql = "
+              UPDATE `product`
+              SET
+                  name = :name,
+                  description = :description,
+                  picture = :picture,
+                  price = :price,
+                  rate = :rate,
+                  status = :status,
+                  brand_id = :brand_id,
+                  category_id = :category_id,
+                  type_id = :type_id,
+                  updated_at = NOW()
+              WHERE id = :id
+          ";
+
+      // PDO prend connaissance des placeholder
+      // et nous donne un PDOStatement pour y affecter les valeurs
+      $pdoStatement = $pdo->prepare($sql);
+
+      $pdoStatement->bindValue(':name', $this->name, PDO::PARAM_STR);
+      $pdoStatement->bindValue(':description', $this->description, PDO::PARAM_STR);
+      $pdoStatement->bindValue(':picture', $this->picture, PDO::PARAM_STR);
+      $pdoStatement->bindValue(':price', $this->price); // TODO PARAM_FLOAT
+      $pdoStatement->bindValue(':rate', $this->rate, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':status', $this->status, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':brand_id', $this->brand_id, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':category_id', $this->category_id, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':type_id', $this->type_id, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+
+      // Execution de la requête de mise à jour (exec, pas query)
+      $updatedRows = $pdoStatement->execute();
+
+      // vrai si la requête aboutie
+      return $updatedRows;
     }
 
     /**

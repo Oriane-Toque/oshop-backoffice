@@ -1,4 +1,3 @@
-<?php dump($category); ?>
 <a href="<?= $router->generate('category-list') ?>" class="btn btn-success float-right">Retour</a>
 <h2>Modifier une catégorie</h2>
 

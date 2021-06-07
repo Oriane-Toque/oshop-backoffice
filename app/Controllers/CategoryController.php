@@ -38,7 +38,10 @@
      */
     public function add()
     {
-      $this->show('category/add');
+
+      $categoryData['titrePage'] = 'Ajouter une catégorie';
+
+      $this->show('category/add', $categoryData);
     }
     /**
      * Création d'une catégorie
@@ -80,6 +83,7 @@
       $categoryModel = Category::find($routeInfo);
       // je stocke les information de la catégorie selectionnait par l'admin
       $categoryData['category'] = $categoryModel;
+      $categoryData['titrePage'] = 'Modifier une catégorie';
 
       // dump($categoryData);
 

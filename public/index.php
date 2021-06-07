@@ -105,12 +105,27 @@ $router->map(
     '\App\Controllers\CategoryController::update',
     'category-update'
 );
-
+// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE
 $router->map(
     'POST',
     '/category/update/[i:categoryId]',
     '\App\Controllers\CategoryController::edit',
     'category-edit'
+);
+
+// ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE PRODUIT
+$router->map(
+    'GET',
+    '/product/update/[i:productId]',
+    '\App\Controllers\ProductController::update',
+    'product-update'
+);
+// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE
+$router->map(
+    'POST',
+    '/product/update/[i:productId]',
+    '\App\Controllers\ProductController::edit',
+    'product-edit'
 );
 
 
