@@ -149,12 +149,12 @@
      * 
      * @return bool
      */
-    public function delete($id)
+    public static function delete($id)
     {
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
 
-      // Ecriture de la requête UPDATE
+      // Ecriture de la requête DELETE
       $sql = "
               DELETE FROM brand
               WHERE id = :id

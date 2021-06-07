@@ -250,4 +250,29 @@
       // retourne vrai si la requête
       return $updatedRows;
     }
+
+    /**
+     * Méthode permettant de supprimer une ligne de la table category
+     * 
+     * @return bool
+     */
+    public static function delete($id)
+    {
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
+
+      // Ecriture de la requête DELETE
+      $sql = "
+              DELETE FROM category
+              WHERE id = :id
+          ";
+      
+      $pdoStatement = $pdo->prepare($sql);
+      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+
+      // Execution de la requête de mise à jour (exec, pas query)
+      $deleteRow = $pdoStatement->execute();
+
+      return $deleteRow;
+    }
   }

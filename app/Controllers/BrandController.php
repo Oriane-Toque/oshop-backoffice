@@ -103,11 +103,15 @@
       exit();
     }
 
+    /**
+     * Method to delete row of brand table
+     *
+     * @param [type] $routeInfo
+     * @return void
+     */
     public function delete($routeInfo) {
 
-      $deleteBrand = new Brand();
-
-      $deleteBrand->delete($routeInfo);
+      Brand::delete($routeInfo);
 
       global $router;
       header('Location: ' .$router->generate('brand-list'));

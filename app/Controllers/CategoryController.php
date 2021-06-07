@@ -122,4 +122,19 @@
       header('Location: ' . $router->generate('category-update', ['categoryId' => $routeInfo]));
       exit();
     }
+
+    /**
+     * Method to delete row of category table
+     *
+     * @param [type] $routeInfo
+     * @return void
+     */
+    public function delete($routeInfo) {
+
+      Category::delete($routeInfo);
+
+      global $router;
+      header('Location: ' .$router->generate('category-list'));
+      exit();
+    }
   }
