@@ -4,7 +4,7 @@ namespace App\Models;
 
 // Classe mère de tous les Models
 // On centralise ici toutes les propriétés et méthodes utiles pour TOUS les Models
-class CoreModel {
+abstract class CoreModel {
     /**
      * @var int
      */
@@ -18,6 +18,11 @@ class CoreModel {
      */
     protected $updated_at;
 
+    abstract public static function find(int $id);
+    abstract public static function findAll();
+    abstract public function insert();
+    abstract public function update(int $id);
+    abstract public static function delete(int $id);
 
     /**
      * Get the value of id

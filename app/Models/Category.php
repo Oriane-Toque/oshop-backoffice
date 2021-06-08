@@ -99,13 +99,13 @@
      * @param int $categoryId ID de la catégorie
      * @return Category
      */
-    public static function find($categoryId)
+    public static function find(int $id)
     {
       // se connecter à la BDD
       $pdo = Database::getPDO();
 
       // écrire notre requête
-      $sql = 'SELECT * FROM `category` WHERE `id` =' . $categoryId;
+      $sql = 'SELECT * FROM `category` WHERE `id` =' . $id;
 
       // exécuter notre requête
       $pdoStatement = $pdo->query($sql);
@@ -219,7 +219,7 @@
      * 
      * @return bool
      */
-    public function update($id)
+    public function update(int $id)
     {
         // Récupération de l'objet PDO représentant la connexion à la DB
         $pdo = Database::getPDO();
@@ -256,7 +256,7 @@
      * 
      * @return bool
      */
-    public static function delete($id)
+    public static function delete(int $id)
     {
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
