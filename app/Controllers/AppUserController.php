@@ -4,7 +4,7 @@
 
   use App\Controllers\CoreController;
 
-  class UserController extends CoreController {
+  class AppUserController extends CoreController {
 
     public function login() {
 

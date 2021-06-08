@@ -221,19 +221,19 @@
      */
     public function update(int $id)
     {
-        // Récupération de l'objet PDO représentant la connexion à la DB
-        $pdo = Database::getPDO();
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
 
-        // Ecriture de la requête UPDATE
-        $sql = "
-            UPDATE `category`
-            SET
-                name = :name,
-                subtitle = :subtitle,
-                picture = :picture,
-                updated_at = NOW()
-            WHERE id = :id
-        ";
+      // Ecriture de la requête UPDATE
+      $sql = "
+          UPDATE `category`
+          SET
+              name = :name,
+              subtitle = :subtitle,
+              picture = :picture,
+              updated_at = NOW()
+          WHERE id = :id
+      ";
 
       // PDO prend connaissance des placeholder
       // et nous donne un PDOStatement pour y affecter les valeurs

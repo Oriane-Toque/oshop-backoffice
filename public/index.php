@@ -263,8 +263,16 @@ $router->map(
 $router->map(
     'GET',
     '/user/login',
-    '\App\Controllers\UserController::login',
+    '\App\Controllers\AppUserController::login',
     'user-login'
+);
+
+// ROUTE DEMANDE AUTORISTION DE CONNEXION
+$router->map(
+    'POST',
+    '/user/login',
+    '\App\Controllers\AppUserController::connection',
+    'user-connection'
 );
 
 /* -------------
