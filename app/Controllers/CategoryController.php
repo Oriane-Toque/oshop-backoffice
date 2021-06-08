@@ -45,7 +45,7 @@
     }
 
     /**
-     * Création d'une catégorie
+     * Create category
      * 
      * @return void
      */
@@ -79,11 +79,12 @@
     }
 
     /**
-     * Data's form
+     * Display edit's form
      * 
      * @return void
+     * @param int (identifiant de la catégorie)
      */
-    public function update($routeInfo) {
+    public function update(int $routeInfo) {
 
       // je récupère toutes les données de ma catégorie selon son id contenu dans $routeInfo
       $categoryModel = Category::find($routeInfo);
@@ -100,16 +101,18 @@
      * Edit category
      * 
      * @return void
+     * @param int (identifiant de la catégorie)
      */
-    public function edit($routeInfo) {
+    public function edit(int $routeInfo) {
 
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
       $subtitle = filter_input(INPUT_POST, 'subtitle', FILTER_SANITIZE_STRING);
-      $picture = filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_URL);
+      $picture = filter_input(INPUT_POST, 'picture', FILTER_VALIDATE_URL);
 
       // dump($name);
 
-      $editCategory = new Category();
+      // je récupère les dernières infos à jour
+      $editCategory = Category::find($routeInfo);
       // modification des propriétés liées à l'instance
       // affectation des données du formulaire
       $editCategory->setName($name);
@@ -124,12 +127,12 @@
     }
 
     /**
-     * Method to delete row of category table
+     * Method to delete a category
      *
-     * @param [type] $routeInfo
+     * @param int (identifiant de la catégorie)
      * @return void
      */
-    public function delete($routeInfo) {
+    public function delete(int $routeInfo) {
 
       Category::delete($routeInfo);
 

@@ -117,7 +117,7 @@
       // récupération des valeurs du formulaire
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
       $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
-      $picture = filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING);
+      $picture = filter_input(INPUT_POST, 'picture', FILTER_VALIDATE_URL);
       $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
       $rate = filter_input(INPUT_POST, 'rate', FILTER_VALIDATE_INT);
       $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
@@ -126,7 +126,7 @@
       $type_id = filter_input(INPUT_POST, 'type', FILTER_VALIDATE_INT);
 
       // instanciation de notre model Product
-      $editProduct = new Product();
+      $editProduct = Product::find($routeInfo);
       // modification des propriétés de l'instanciation
       $editProduct->setName($name);
       $editProduct->setDescription($description);

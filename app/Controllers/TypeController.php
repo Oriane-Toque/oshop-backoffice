@@ -91,7 +91,7 @@
 
       // dump($name);
 
-      $editType = new Type();
+      $editType = Type::find($routeInfo);
       // modification des propriétés liées à l'instance
       // affectation des données du formulaire
       $editType->setName($name);

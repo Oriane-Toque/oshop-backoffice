@@ -12,7 +12,12 @@
   </thead>
   <tbody>
 
-    <?php foreach ($productList as $product) : ?>
+    <?php 
+    /**
+     * @var Product $product
+     */
+    foreach ($productList as $product) : 
+    ?>
       <tr>
         <th scope="row"><?= $product->getId(); ?></th>
         <td><?= $product->getName(); ?></td>

@@ -91,7 +91,7 @@
 
       // dump($name);
 
-      $editBrand = new Brand();
+      $editBrand = Brand::find($routeInfo);
       // modification des propriétés liées à l'instance
       // affectation des données du formulaire
       $editBrand->setName($name);
