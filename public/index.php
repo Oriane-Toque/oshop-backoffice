@@ -256,6 +256,17 @@ $router->map(
 );
 
 
+//=========================================================
+// ================== ALL ROUTES USER =====================
+
+// ROUTE VERS LE FORMULAIRE DE CONNEXION
+$router->map(
+    'GET',
+    '/user/login',
+    '\App\Controllers\UserController::login',
+    'user-login'
+);
+
 /* -------------
 --- DISPATCH ---
 --------------*/

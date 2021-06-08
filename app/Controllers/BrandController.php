@@ -67,7 +67,7 @@
      * 
      * @return void
      */
-    public function update($routeInfo) {
+    public function update(int $routeInfo) {
 
       // je récupère toutes les données de ma marque selon son id contenu dans $routeInfo
       $brandModel = Brand::find($routeInfo);
@@ -85,7 +85,7 @@
      * 
      * @return void
      */
-    public function edit($routeInfo) {
+    public function edit(int $routeInfo) {
 
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 
@@ -109,7 +109,7 @@
      * @param [type] $routeInfo
      * @return void
      */
-    public function delete($routeInfo) {
+    public function delete(int $routeInfo) {
 
       Brand::delete($routeInfo);
 
