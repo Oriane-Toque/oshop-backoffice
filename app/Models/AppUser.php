@@ -74,6 +74,21 @@
       return $appUsers;
     }
 
+    public static function findByEmail($email) {
+
+      $pdo = Database::getPDO();
+
+      $sql = "SELECT * FROM `app_user` WHERE `email` = '$email'";
+
+      $pdoStatement = $pdo->query($sql);
+
+      // un seul résultat => fetchObject
+      $appUser = $pdoStatement->fetchObject('App\Models\AppUser');
+
+      // retourner le résultat
+      return $appUser;
+    }
+
     /**
      * méthode d'insertion en base de données
      * 
