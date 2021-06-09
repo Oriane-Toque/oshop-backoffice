@@ -167,7 +167,7 @@
       if(empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
         $errors['email'] = "Ce n'est pas une adresse mail valide";
       }
-      if(empty($password)) {
+      if(empty($password) ) {
         $errors['password'] = "Ce n'est pas un mot de passe valide";
       }
       if(empty($firstname) || is_numeric($firstname[0])) {
