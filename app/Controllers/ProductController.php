@@ -32,7 +32,7 @@
     }
 
     /**
-     * Ajout d'un produit.
+     * Ajout d'un produit
      *
      * @return void
      */
@@ -53,6 +53,11 @@
       $this->show('product/add', $listAllModel);
     }
 
+    /**
+     * Ajoute le nouveau produit à la BDD
+     *
+     * @return void
+     */
     public function create()
     {
       $rolesRequis[] = 'catalog-manager';

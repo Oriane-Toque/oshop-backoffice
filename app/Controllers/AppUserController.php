@@ -126,7 +126,7 @@
     }
 
     /**
-     * Ajout d'une marque
+     * Ajout d'un utilisateur
      *
      * @return void
      */
@@ -138,5 +138,37 @@
       $userData['titrePage'] = 'Ajouter un utilisateur';
 
       $this->show('user/add', $userData);
+    }
+
+    public function create()
+    {
+
+      $this->checkAuthorization();
+
+      $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+      $password = password_hash(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), PASSWORD_DEFAULT);
+      $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+      $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+      $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
+      $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+
+      // dd($_POST);
+      // dd($password);
+
+      //je creer un nouveau Model
+      $newUser = new AppUser();
+      $newUser->setEmail($email);
+      $newUser->setPassword($password);
+      $newUser->setFirstname($firstname);
+      $newUser->setLastname($lastname);
+      $newUser->setRole($role);
+      $newUser->setStatus($status);
+
+      // on insere en base de données
+      $newUser->insert();
+
+      global $router;
+      header('Location:'.$router->generate('user-list'));
+      exit();
     }
   }
