@@ -204,4 +204,32 @@
       }
 
     }
+
+    public function update(int $routeInfo) {
+
+      $this->checkAuthorization();
+
+      // je récupère toutes les données de ma marque selon son id contenu dans $routeInfo
+      $userModel = AppUser::find($routeInfo);
+      // je stocke les information de la marque selectionnait par l'admin
+      $userData['user'] = $userModel;
+      $userData['titrePage'] = 'Modifier un utilisateur';
+
+      $this->show('user/update', $userData);
+    }
+
+    public function edit(int $routeInfo) {
+      // TODO
+    }
+
+    public function delete(int $routeInfo) {
+
+      $this->checkAuthorization();
+
+      AppUser::delete($routeInfo);
+
+      global $router;
+      header('Location: ' .$router->generate('user-list'));
+      exit();
+    }
   }
