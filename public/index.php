@@ -323,7 +323,7 @@ $router->map(
 
 // ROUTE TRAITEMENT DU FORMULAIRE DE MODIFICATIONS UTILISATEURS
 $router->map(
-    'GET',
+    'POST',
     '/user/update/[i:userId]',
     '\App\Controllers\AppUserController::edit',
     'user-edit'

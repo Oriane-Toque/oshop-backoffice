@@ -219,7 +219,40 @@
     }
 
     public function edit(int $routeInfo) {
-      // TODO
+
+      $this->checkAuthorization();
+
+      // dd($_POST);
+
+      $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+      $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+      $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+      $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+      $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
+      $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+
+      // dump($name);
+
+      $editUser = AppUser::find($routeInfo);
+
+      // modification des propriétés liées à l'instance
+      // affectation des données du formulaire
+      $editUser->setEmail($email);
+      $editUser->setPassword(password_hash($password, PASSWORD_DEFAULT));
+      $editUser->setFirstname($firstname);
+      $editUser->setLastname($lastname);
+      $editUser->setRole($role);
+      $editUser->setStatus($status);
+
+      // dd($editUser);
+
+      $editUser->update($routeInfo);
+
+      // dd($editUser);
+
+      global $router;
+      header('Location: ' . $router->generate('user-update', ['userId' => $routeInfo]));
+      exit();
     }
 
     public function delete(int $routeInfo) {

@@ -172,7 +172,7 @@
 
       // Ecriture de la requête UPDATE
       $sql = "
-              UPDATE `category`
+              UPDATE `app_user`
               SET
                   email = :email,
                   password = :password,
