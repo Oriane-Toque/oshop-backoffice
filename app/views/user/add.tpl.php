@@ -10,7 +10,10 @@
     <div class="form-group">
         <label for="password">Mot de passe</label>
         <?= isset($password) ? '<p style="color:red;">'.$password.'</p>' : ''; ?>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" value="<?= isset($_POST['password']) ? $_POST['password'] : ''; ?>">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" aria-describedby="passwordHelpBlock" value="<?= isset($_POST['password']) ? $_POST['password'] : ''; ?>">
+        <small id="passwordHelpBlock" class="form-text text-muted">
+          Le mot de passe doit contenir : au moins 8 caractères, une lettre en minuscule, une lettre en majuscule, un chiffre et un caractère spécial !
+        </small>
     </div>
     <div class="form-group">
         <label for="firstname">Prénom</label>

@@ -157,7 +157,7 @@
       if(isset($_POST)) {
         
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $password = password_hash(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), PASSWORD_DEFAULT);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
         $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
         $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
         $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
@@ -167,7 +167,7 @@
       if(empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
         $errors['email'] = "Ce n'est pas une adresse mail valide";
       }
-      if(empty($password) ) {
+      if(!preg_match('/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!.\?]{8,50}$/',$password)) {
         $errors['password'] = "Ce n'est pas un mot de passe valide";
       }
       if(empty($firstname) || is_numeric($firstname[0])) {
@@ -190,7 +190,7 @@
         $newUser = new AppUser();
 
         $newUser->setEmail($email);
-        $newUser->setPassword($password);
+        $newUser->setPassword(password_hash($password, PASSWORD_DEFAULT));
         $newUser->setFirstname($firstname);
         $newUser->setLastname($lastname);
         $newUser->setRole($role);
