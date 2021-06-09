@@ -124,4 +124,19 @@
 
       $this->show('user/list', $usersList);
     }
+
+    /**
+     * Ajout d'une marque
+     *
+     * @return void
+     */
+    public function add()
+    {
+
+      $this->checkAuthorization();
+      
+      $userData['titrePage'] = 'Ajouter un utilisateur';
+
+      $this->show('user/add', $userData);
+    }
   }
