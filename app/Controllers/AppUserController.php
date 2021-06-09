@@ -19,8 +19,10 @@
           require_once __DIR__.'/../views/user/login.tpl.php';
           require_once __DIR__.'/../views/layout/footer.tpl.php';
           */
+      $loginData['titrePage'] = 'Connexion';
+
       // méthode avec la navigation, à revoir
-      $this->show('user/login');
+      $this->show('user/login', $loginData);
     }
 
     /**
@@ -140,35 +142,66 @@
       $this->show('user/add', $userData);
     }
 
+    /**
+     * Traitement de l'ajout + insertion bdd
+     *
+     * @return void
+     */
     public function create()
     {
 
       $this->checkAuthorization();
 
-      $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-      $password = password_hash(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), PASSWORD_DEFAULT);
-      $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-      $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
-      $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
-      $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+      $errors = [];
 
-      // dd($_POST);
-      // dd($password);
+      if(isset($_POST)) {
+        
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $password = password_hash(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING), PASSWORD_DEFAULT);
+        $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+        $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+        $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
+        $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+      }
 
-      //je creer un nouveau Model
-      $newUser = new AppUser();
-      $newUser->setEmail($email);
-      $newUser->setPassword($password);
-      $newUser->setFirstname($firstname);
-      $newUser->setLastname($lastname);
-      $newUser->setRole($role);
-      $newUser->setStatus($status);
+      if(empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
+        $errors['email'] = "Ce n'est pas une adresse mail valide";
+      }
+      if(empty($password)) {
+        $errors['password'] = "Ce n'est pas un mot de passe valide";
+      }
+      if(empty($firstname) || is_numeric($firstname[0])) {
+        $errors['firstname'] = "Ce n'est pas un prénom valide";
+      }
+      if(empty($lastname) || is_numeric($lastname[0])) {
+        $errors['lastname'] = "Ce n'est pas un nom valide";
+      }
+      if(empty($role) || is_numeric($role)) {
+        $errors['role'] = "Veuillez renseigner le role";
+      }
+      if(empty($status) || !is_numeric($status) || $status > 2 || $status < 0) {
+        $errors['status'] = "Veuillez renseigner le statut";
+      }
 
-      // on insere en base de données
-      $newUser->insert();
+      if(!empty($errors)) {
+        $this->show('user/add', $errors);
+      } else {
 
-      global $router;
-      header('Location:'.$router->generate('user-list'));
-      exit();
+        $newUser = new AppUser();
+
+        $newUser->setEmail($email);
+        $newUser->setPassword($password);
+        $newUser->setFirstname($firstname);
+        $newUser->setLastname($lastname);
+        $newUser->setRole($role);
+        $newUser->setStatus($status);
+
+        $newUser->insert();
+
+        global $router;
+        header('Location:'.$router->generate('user-list'));
+        exit();
+      }
+
     }
   }
