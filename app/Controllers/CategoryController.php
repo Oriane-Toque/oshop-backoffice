@@ -16,9 +16,10 @@
     public function list()
     {
 
-      // on définit les roles qui ont le droit d'
+      // on définit les roles qui ont le droit d'accès
       $rolesRequis[] = 'catalog-manager';
-      // $rolesRequis[] = 'admin';
+
+
       // pas besoin de tester le retour de la fonction
       // car elle vire les gens si c'est pas bon.
       $this->checkAuthorization($rolesRequis);
@@ -45,6 +46,9 @@
      */
     public function add()
     {
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       $categoryData['titrePage'] = 'Ajouter une catégorie';
 
@@ -58,7 +62,9 @@
      */
     public function create()
     {
+      $rolesRequis[] = 'catalog-manager';
 
+      $this->checkAuthorization($rolesRequis);
       // je dois récuperer les données dans $_POST
       // 1ere solution : $name = $_POST['name']
       // 2eme solution : $name = filter_input(INPUT_POST, 'name');
@@ -93,6 +99,9 @@
      */
     public function update(int $routeInfo) {
 
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
       // je récupère toutes les données de ma catégorie selon son id contenu dans $routeInfo
       $categoryModel = Category::find($routeInfo);
       // je stocke les information de la catégorie selectionnait par l'admin
@@ -111,6 +120,9 @@
      * @param int (identifiant de la catégorie)
      */
     public function edit(int $routeInfo) {
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
       $subtitle = filter_input(INPUT_POST, 'subtitle', FILTER_SANITIZE_STRING);
@@ -140,6 +152,10 @@
      * @return void
      */
     public function delete(int $routeInfo) {
+
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       Category::delete($routeInfo);
 

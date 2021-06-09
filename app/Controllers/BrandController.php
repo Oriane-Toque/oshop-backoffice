@@ -15,7 +15,9 @@
      */
     public function list()
     {
+      $rolesRequis[] = 'catalog-manager';
 
+      $this->checkAuthorization($rolesRequis);
       // Class::method grâce à static qui ne lie plus la méthode à l'instance
       $listModel = Brand::findAll();
 
@@ -34,7 +36,10 @@
      */
     public function add()
     {
+      $rolesRequis[] = 'catalog-manager';
 
+      $this->checkAuthorization($rolesRequis);
+      
       $brandData['titrePage'] = 'Ajouter une marque';
 
       $this->show('brand/add', $brandData);
@@ -47,6 +52,9 @@
      */
     public function create()
     {
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 
@@ -69,6 +77,10 @@
      */
     public function update(int $routeInfo) {
 
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
+
       // je récupère toutes les données de ma marque selon son id contenu dans $routeInfo
       $brandModel = Brand::find($routeInfo);
       // je stocke les information de la marque selectionnait par l'admin
@@ -86,6 +98,10 @@
      * @return void
      */
     public function edit(int $routeInfo) {
+
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 
@@ -110,6 +126,10 @@
      * @return void
      */
     public function delete(int $routeInfo) {
+
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       Brand::delete($routeInfo);
 

@@ -2,7 +2,8 @@
 
 namespace App\Controllers;
 
-class CoreController {
+class CoreController
+{
     /**
      * Méthode permettant d'afficher du code HTML en se basant sur les views
      *
@@ -11,7 +12,8 @@ class CoreController {
      * @return void
      */
 
-    protected function show(string $viewName, $viewVars = []) {
+    protected function show(string $viewName, $viewVars = [])
+    {
         // On globalise $router car on ne sait pas faire mieux pour l'instant
         global $router;
 
@@ -19,7 +21,7 @@ class CoreController {
         // les vues y ont accès
         // ici une valeur dont on a besoin sur TOUTES les vues
         // donc on la définit dans show()
-        $viewVars['currentPage'] = $viewName; 
+        $viewVars['currentPage'] = $viewName;
 
         // définir l'url absolue pour nos assets
         $viewVars['assetsBaseUri'] = $_SERVER['BASE_URI'] . 'assets/';
@@ -36,42 +38,44 @@ class CoreController {
         // => il en va de même pour chaque élément du tableau
 
         // $viewVars est disponible dans chaque fichier de vue
-        require_once __DIR__.'/../views/layout/header.tpl.php';
-        require_once __DIR__.'/../views/'.$viewName.'.tpl.php';
-        require_once __DIR__.'/../views/layout/footer.tpl.php';
+        require_once __DIR__ . '/../views/layout/header.tpl.php';
+        require_once __DIR__ . '/../views/' . $viewName . '.tpl.php';
+        require_once __DIR__ . '/../views/layout/footer.tpl.php';
     }
 
     /**
      * Méthode de vérification des droits d'entrée 
      */
-    protected function checkAuthorization($rolesRequis = ['admin'])
+    protected function checkAuthorization($rolesRequis = [])
     {
         global $router;
 
-        if(!isset($_SESSION['userObject'])) {
+        $rolesRequis[] = 'admin';
+
+        if (!isset($_SESSION['userObject'])) {
 
             // il est rentré par la fenêtre ???
-            header('Location:'.$router->generate('user-login'));
+            header('Location:' . $router->generate('user-login'));
             exit();
         }
 
         // qu'est ce que je doit vérifier ?
         // je doit vérifier si le role de l'utilisateur via $_SESSION
         // correspond aux droitsRequis par le controller, donné en paramètre
-        
+
         // je récupère mon user
         $user = $_SESSION['userObject'];
 
         $roleUser = $user->getRole();
 
         foreach ($rolesRequis as $role) {
-            if ($roleUser === $role){
+            if ($roleUser === $role) {
                 return true;
             }
         }
 
         // qu'est ce que je fait si l'utilisateur n'a pas les droits ?
-        header('Location:'.$router->generate('main-home'));
+        header('Location:' . $router->generate('user-login'));
         exit();
     }
 }

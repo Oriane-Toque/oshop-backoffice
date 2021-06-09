@@ -15,6 +15,9 @@
      */
     public function list()
     {
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       // Class::method grâce à static qui ne lie plus la méthode à l'instance
       $listModel = Type::findAll();
@@ -34,6 +37,9 @@
      */
     public function add()
     {
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       $typeData['titrePage'] = 'Ajouter une type';
 
@@ -47,6 +53,9 @@
      */
     public function create()
     {
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 
@@ -67,7 +76,11 @@
      * 
      * @return void
      */
-    public function update($routeInfo) {
+    public function update(int $routeInfo) {
+
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       // je récupère toutes les données de ma type selon son id contenu dans $routeInfo
       $typeModel = Type::find($routeInfo);
@@ -85,8 +98,12 @@
      * 
      * @return void
      */
-    public function edit($routeInfo) {
+    public function edit(int $routeInfo) {
 
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
+      
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 
       // dump($name);
@@ -109,7 +126,11 @@
      * @param [type] $routeInfo
      * @return void
      */
-    public function delete($routeInfo) {
+    public function delete(int $routeInfo) {
+
+      $rolesRequis[] = 'catalog-manager';
+
+      $this->checkAuthorization($rolesRequis);
 
       Type::delete($routeInfo);
 

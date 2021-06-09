@@ -93,6 +93,21 @@
       return $results;
     }
 
+    /**
+     * Méthode permettant de récupérer tous les enregistrements de la table product
+     * 
+     * @return Product[]
+     */
+    public static function findAllHomePage()
+    {
+        $pdo = Database::getPDO();
+        $sql = 'SELECT * FROM `product` ORDER BY created_at DESC LIMIT 5';
+        $pdoStatement = $pdo->query($sql);
+        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Product');
+        
+        return $results;
+    }
+
 
     public function insert()
     {
