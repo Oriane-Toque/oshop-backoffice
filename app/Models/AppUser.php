@@ -5,7 +5,8 @@
   use App\Utils\Database;
   use PDO;
 
-  class AppUser extends CoreModel {
+  class AppUser extends CoreModel
+  {
 
     /**
      *
@@ -18,11 +19,11 @@
     private $password;
     /**
      * @var string
-     */    
+     */
     private $firstname;
     /**
      * @var string
-     */    
+     */
     private $lastname;
     /**
      * @var void
@@ -39,7 +40,8 @@
      * @param integer $id id's user
      * @return AppUser
      */
-    public static function find(int $id) {
+    public static function find(int $id)
+    {
 
       $pdo = Database::getPDO();
 
@@ -61,7 +63,8 @@
      *
      * @return AppUser[]
      */
-    public static function findAll() {
+    public static function findAll()
+    {
 
       $pdo = Database::getPDO();
 
@@ -74,19 +77,35 @@
       return $appUsers;
     }
 
-    public static function findByEmail($email) {
+    public static function findByEmail($email)
+    {
 
+      // se connecter à la BDD
       $pdo = Database::getPDO();
 
-      $sql = "SELECT * FROM `app_user` WHERE `email` = '$email'";
+      // écrire notre requête
+      //? attention aux emojis :email: :D
+      $sql = 'SELECT * FROM `app_user` WHERE `email` = :email';
 
-      $pdoStatement = $pdo->query($sql);
+      // exécuter notre requête
+      $pdoStatement = $pdo->prepare($sql);
 
-      // un seul résultat => fetchObject
-      $appUser = $pdoStatement->fetchObject('App\Models\AppUser');
+      $pdoStatement->bindValue(':email', $email, PDO::PARAM_STR);
+      // $pdoStatement->bindParam(':email', $email, PDO::PARAM_STR);
 
-      // retourner le résultat
-      return $appUser;
+      // VRAI si la requete c'est bien passé
+      $requeteOk = $pdoStatement->execute();
+
+      if ($requeteOk) {
+        // un seul résultat => fetchObject
+        // Créer moi un objet à partir du résultat de la requete
+        // que tu as précedement execute()
+        $user = $pdoStatement->fetchObject('App\Models\AppUser');
+        // retourner le résultat
+        return $user;
+      } else {
+        return false;
+      }
     }
 
     /**
@@ -94,7 +113,8 @@
      * 
      * @return bool
      */
-    public function insert() {
+    public function insert()
+    {
 
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
@@ -102,23 +122,23 @@
       // Ecriture de la requête INSERT INTO
       // Comme c'est une requete SENSIBLE, on va la préparer avec des placeholders
       $sql = "INSERT INTO `app_user` 
-          (
-          `email`,
-          `password`,
-          `firstname`,
-          `lastname`,
-          `role`,
-          `status`
-          )
-          VALUES (
-              :email,
-              :password,
-              :firstname,
-              :lastname,
-              :role,
-              :status
-              );
-          ";
+            (
+            `email`,
+            `password`,
+            `firstname`,
+            `lastname`,
+            `role`,
+            `status`
+            )
+            VALUES (
+                :email,
+                :password,
+                :firstname,
+                :lastname,
+                :role,
+                :status
+                );
+            ";
 
       // PDO prend connaissance des placeholder
       // et nous donne un PDOStatement pour y affecter les valeurs
@@ -145,23 +165,24 @@
      * @param integer $id id's user
      * @return bool
      */
-    public function update(int $id) {
-        // Récupération de l'objet PDO représentant la connexion à la DB
-        $pdo = Database::getPDO();
+    public function update(int $id)
+    {
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
 
-        // Ecriture de la requête UPDATE
-        $sql = "
-            UPDATE `category`
-            SET
-                email = :email,
-                password = :password,
-                firstname = :firstname,
-                lastname = :lastname,
-                role = :role,
-                status = :status,
-                updated_at = NOW()
-            WHERE id = :id
-        ";
+      // Ecriture de la requête UPDATE
+      $sql = "
+              UPDATE `category`
+              SET
+                  email = :email,
+                  password = :password,
+                  firstname = :firstname,
+                  lastname = :lastname,
+                  role = :role,
+                  status = :status,
+                  updated_at = NOW()
+              WHERE id = :id
+          ";
 
       // PDO prend connaissance des placeholder
       // et nous donne un PDOStatement pour y affecter les valeurs
@@ -188,16 +209,17 @@
      * @param integer $id id's user
      * @return bool
      */
-    public static function delete(int $id) {
+    public static function delete(int $id)
+    {
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
 
       // Ecriture de la requête DELETE
       $sql = "
-              DELETE FROM app_user
-              WHERE id = :id
-          ";
-      
+                DELETE FROM app_user
+                WHERE id = :id
+            ";
+
       $pdoStatement = $pdo->prepare($sql);
 
       $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
@@ -212,10 +234,10 @@
      * Get the value of email
      *
      * @return  string
-     */ 
+     */
     public function getEmail()
     {
-        return $this->email;
+      return $this->email;
     }
 
     /**
@@ -224,22 +246,22 @@
      * @param  string  $email
      *
      * @return  self
-     */ 
+     */
     public function setEmail(string $email)
     {
-        $this->email = $email;
+      $this->email = $email;
 
-        return $this;
+      return $this;
     }
 
     /**
      * Get the value of password
      *
      * @return  string
-     */ 
+     */
     public function getPassword()
     {
-        return $this->password;
+      return $this->password;
     }
 
     /**
@@ -248,62 +270,62 @@
      * @param  string  $password
      *
      * @return  self
-     */ 
+     */
     public function setPassword(string $password)
     {
-        $this->password = $password;
+      $this->password = $password;
 
-        return $this;
+      return $this;
     }
 
     /**
      * Get the value of firstname
-     */ 
+     */
     public function getFirstname()
     {
-        return $this->firstname;
+      return $this->firstname;
     }
 
     /**
      * Set the value of firstname
      *
      * @return  self
-     */ 
+     */
     public function setFirstname($firstname)
     {
-        $this->firstname = $firstname;
+      $this->firstname = $firstname;
 
-        return $this;
+      return $this;
     }
 
     /**
      * Get the value of lastname
-     */ 
+     */
     public function getLastname()
     {
-        return $this->lastname;
+      return $this->lastname;
     }
 
     /**
      * Set the value of lastname
      *
      * @return  self
-     */ 
+     */
     public function setLastname($lastname)
     {
-        $this->lastname = $lastname;
+      $this->lastname = $lastname;
 
-        return $this;
+      return $this;
     }
 
     /**
      * Get the value of role
      *
      * @return  void
-     */ 
+     */
     public function getRole()
     {
-        return $this->role;
+      return $this->role;
     }
 
     /**
@@ -312,22 +334,22 @@
      * @param  void  $role
      *
      * @return  self
-     */ 
+     */
     public function setRole($role)
     {
-        $this->role = $role;
+      $this->role = $role;
 
-        return $this;
+      return $this;
     }
 
     /**
      * Get the value of status
      *
      * @return  int
-     */ 
+     */
     public function getStatus()
     {
-        return $this->status;
+      return $this->status;
     }
 
     /**
@@ -336,11 +358,11 @@
      * @param  int  $status
      *
      * @return  self
-     */ 
+     */
     public function setStatus(int $status)
     {
-        $this->status = $status;
+      $this->status = $status;
 
-        return $this;
+      return $this;
     }
   }

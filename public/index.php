@@ -8,6 +8,9 @@
 // mais aussi d'activer le chargement automatique des classes (convention PSR-4)
 require_once '../vendor/autoload.php';
 
+// on démarre la session pour permettre la connexion utilisteur
+session_start();
+
 /* ------------
 --- ROUTAGE ---
 -------------*/
@@ -259,20 +262,25 @@ $router->map(
 //=========================================================
 // ================== ALL ROUTES USER =====================
 
-// ROUTE VERS LE FORMULAIRE DE CONNEXION
 $router->map(
     'GET',
-    '/user/login',
+    '/user/login', // connexion
     '\App\Controllers\AppUserController::login',
     'user-login'
 );
-
-// ROUTE DEMANDE AUTORISTION DE CONNEXION
+// reception du formulaire
 $router->map(
     'POST',
     '/user/login',
-    '\App\Controllers\AppUserController::connection',
-    'user-connection'
+    '\App\Controllers\AppUserController::connect',
+    'user-connect'
+);
+// déconnexion
+$router->map(
+    'GET',
+    '/user/logout',
+    '\App\Controllers\AppUserController::logout',
+    'user-logout'
 );
 
 /* -------------

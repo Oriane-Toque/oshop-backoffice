@@ -10,6 +10,7 @@ class CoreController {
      * @param array $viewVars Tableau des données à transmettre aux vues
      * @return void
      */
+
     protected function show(string $viewName, $viewVars = []) {
         // On globalise $router car on ne sait pas faire mieux pour l'instant
         global $router;
@@ -38,5 +39,39 @@ class CoreController {
         require_once __DIR__.'/../views/layout/header.tpl.php';
         require_once __DIR__.'/../views/'.$viewName.'.tpl.php';
         require_once __DIR__.'/../views/layout/footer.tpl.php';
+    }
+
+    /**
+     * Méthode de vérification des droits d'entrée 
+     */
+    protected function checkAuthorization($rolesRequis = ['admin'])
+    {
+        global $router;
+
+        if(!isset($_SESSION['userObject'])) {
+
+            // il est rentré par la fenêtre ???
+            header('Location:'.$router->generate('user-login'));
+            exit();
+        }
+
+        // qu'est ce que je doit vérifier ?
+        // je doit vérifier si le role de l'utilisateur via $_SESSION
+        // correspond aux droitsRequis par le controller, donné en paramètre
+        
+        // je récupère mon user
+        $user = $_SESSION['userObject'];
+
+        $roleUser = $user->getRole();
+
+        foreach ($rolesRequis as $role) {
+            if ($roleUser === $role){
+                return true;
+            }
+        }
+
+        // qu'est ce que je fait si l'utilisateur n'a pas les droits ?
+        header('Location:'.$router->generate('main-home'));
+        exit();
     }
 }

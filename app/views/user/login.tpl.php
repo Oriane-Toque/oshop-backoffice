@@ -1,4 +1,4 @@
-<form action="<?= $router->generate('user-login') ?>" method="POST">
+<form action="<?= $router->generate('user-connect') ?>" method="POST">
   <div class="mb-3">
     <label for="email" class="form-label">Identifiant</label>
     <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="xxxx@email.com">

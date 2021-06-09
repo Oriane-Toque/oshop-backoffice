@@ -16,6 +16,13 @@
     public function list()
     {
 
+      // on définit les roles qui ont le droit d'
+      $rolesRequis[] = 'catalog-manager';
+      // $rolesRequis[] = 'admin';
+      // pas besoin de tester le retour de la fonction
+      // car elle vire les gens si c'est pas bon.
+      $this->checkAuthorization($rolesRequis);
+
       // ancienne manière
       // $categoryModel = new Category();
       // $categoryModel->find(1);
