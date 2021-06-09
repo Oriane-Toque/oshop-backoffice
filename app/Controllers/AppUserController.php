@@ -112,4 +112,16 @@
       // un petit coup de header() pour demander au navigateur de faire la redirection
       header('Location: ' . $homepageUrl);
     }
+
+    public function list() {
+
+      $this->checkAuthorization();
+
+      $usersModel = AppUser::findAll();
+
+      $usersList['usersList'] = $usersModel;
+      $usersList['titrePage'] = 'Liste Utilisateurs';
+
+      $this->show('user/list', $usersList);
+    }
   }

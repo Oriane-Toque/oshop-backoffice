@@ -22,8 +22,12 @@
 <body>
 
   <?php
-  // On inclut des sous-vues => "partials"
-    include __DIR__ . '/../partials/nav.tpl.php';
+    if($viewName === 'user/login') {
+      // On inclut des sous-vues => "partials"
+      include __DIR__ . '/../partials/nav.connect.tpl.php';
+    } else {
+      include __DIR__ . '/../partials/nav.tpl.php';
+    }
   ?>
 
 <div class="container my-4">

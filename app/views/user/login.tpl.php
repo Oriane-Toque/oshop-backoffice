@@ -12,4 +12,7 @@
     <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
   </div>
   <button type="submit" class="btn btn-primary">Se connecter</button>
+  <a href="<?= $router->generate('main-home'); ?>">
+    <button type="button" class="btn btn-danger" role="back home">Or no access ! Retour à l'accueil</button>
+  </a>
 </form>

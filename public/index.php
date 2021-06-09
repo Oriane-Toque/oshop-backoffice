@@ -262,25 +262,79 @@ $router->map(
 //=========================================================
 // ================== ALL ROUTES USER =====================
 
+// ROUTE FORMULAIRE DE CONNEXION
 $router->map(
     'GET',
-    '/user/login', // connexion
+    '/user/login',
     '\App\Controllers\AppUserController::login',
     'user-login'
 );
-// reception du formulaire
+
+// ROUTE TRAITEMENT DU FORMULAIRE DE CONNEXION
 $router->map(
     'POST',
     '/user/login',
     '\App\Controllers\AppUserController::connect',
     'user-connect'
 );
-// déconnexion
+
+// ROUTE DECONNEXION UTILISATEUR
 $router->map(
     'GET',
     '/user/logout',
     '\App\Controllers\AppUserController::logout',
     'user-logout'
+);
+
+//=========================================================
+// ================ ALL ROUTES SUPERADMIN =================
+
+// ROUTE LISTE DES UTILISATEURS
+$router->map(
+    'GET',
+    '/user/list', 
+    '\App\Controllers\AppUserController::list',
+    'user-list'
+);
+
+// ROUTE VERS LE FORMULAIRE D'AJOUT DES UTILISATEURS
+$router->map(
+    'GET',
+    '/user/add',
+    '\App\Controllers\AppUserController::add',
+    'user-add'
+);
+
+// ROUTE TRAITEMENT DU FORMULAIRE D'AJOUT UTILISATEURS
+$router->map(
+    'POST',
+    '/user/add',
+    '\App\Controllers\AppUserController::create',
+    'user-create'
+);
+
+// ROUTE FORMULAIRE DE MODIFICATIONS UTILISATEURS
+$router->map(
+    'GET',
+    '/user/update/[i:userId]',
+    '\App\Controllers\AppUserController::update',
+    'user-update'
+);
+
+// ROUTE TRAITEMENT DU FORMULAIRE DE MODIFICATIONS UTILISATEURS
+$router->map(
+    'GET',
+    '/user/update/[i:userId]',
+    '\App\Controllers\AppUserController::edit',
+    'user-edit'
+);
+
+// ROUTE POUR SUPPRIMER UN UTILISATEUR
+$router->map(
+    'GET',
+    '/user/delete/[i:userId]',
+    '\App\Controllers\AppUserController::delete',
+    'user-delete'
 );
 
 /* -------------

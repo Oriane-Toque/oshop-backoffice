@@ -26,7 +26,12 @@
           <a class="nav-link" href="#">Tags</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Sélections Accueil &amp; Footer</a>
+          <a class="nav-link" href="<?= $router->generate('user-list'); ?>">Utilisateurs</a>
+        </li>
+        <li class="nax-item">
+          <a href="<?= $router->generate('user-logout'); ?>">
+            <button type="button" class="btn btn-danger" role="back home">Déconnexion</button>
+          </a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
