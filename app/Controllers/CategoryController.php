@@ -138,25 +138,49 @@
 
       $this->checkAuthorization($rolesRequis);
 
-      $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-      $subtitle = filter_input(INPUT_POST, 'subtitle', FILTER_SANITIZE_STRING);
-      $picture = filter_input(INPUT_POST, 'picture', FILTER_VALIDATE_URL);
+      $errors = [];
 
+      if (isset($_POST)) {
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+        $subtitle = filter_input(INPUT_POST, 'subtitle', FILTER_SANITIZE_STRING);
+        $picture = filter_input(INPUT_POST, 'picture', FILTER_VALIDATE_URL);
+      }
       // dump($name);
 
-      // je récupère les dernières infos à jour
-      $editCategory = Category::find($routeInfo);
-      // modification des propriétés liées à l'instance
-      // affectation des données du formulaire
-      $editCategory->setName($name);
-      $editCategory->setSubtitle($subtitle);
-      $editCategory->setPicture($picture);
+      if(empty($name) || is_numeric($name) || is_numeric($name[0])) {
+        $errors['name'] = "Ce n'est pas un nom valide";
+      }
+      if(empty($subtitle) || is_numeric($subtitle) || is_numeric($subtitle[0])) {
+        $errors['subtitle'] = "Ce n'est pas un sous-titre valide";
+      }
+      if(empty($picture) || !preg_match('/(\.jpg|\.jpeg|\.png|\.gif|\.svg)$/i', $picture)) {
+        $errors['picture'] = "Ce n'est pas une image valide";
+      }
+      
+      if(!empty($errors)) {
+        // rappelle titre de la page
+        // et les données de notre modèle
+        $categoryModel = Category::find($routeInfo);
+        $errors['category'] = $categoryModel;
+        $errors['titrePage'] = "Modifier une catégorie";
 
-      $editCategory->update($routeInfo);
+        $this->show('category/update', $errors);
 
-      global $router;
-      header('Location: ' . $router->generate('category-update', ['categoryId' => $routeInfo]));
-      exit();
+      } else {
+
+        $editCategory = Category::find($routeInfo);
+        // modification des propriétés liées à l'instance
+        // affectation des données du formulaire
+        $editCategory->setName($name);
+        $editCategory->setSubtitle($subtitle);
+        $editCategory->setPicture($picture);
+
+        $editCategory->update($routeInfo);
+
+        global $router;
+        header('Location: ' . $router->generate('category-list'));
+        exit();
+      }
     }
 
     /**
