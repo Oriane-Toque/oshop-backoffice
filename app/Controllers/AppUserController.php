@@ -222,37 +222,60 @@
 
       $this->checkAuthorization();
 
-      // dd($_POST);
+      $errors = [];
 
-      $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-      $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-      $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-      $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
-      $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
-      $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
-
-      // dump($name);
+      if(isset($_POST)) {
+        
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+        $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+        $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+        $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
+        $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+      }
 
       $editUser = AppUser::find($routeInfo);
 
-      // modification des propriétés liées à l'instance
-      // affectation des données du formulaire
-      $editUser->setEmail($email);
-      $editUser->setPassword(password_hash($password, PASSWORD_DEFAULT));
-      $editUser->setFirstname($firstname);
-      $editUser->setLastname($lastname);
-      $editUser->setRole($role);
-      $editUser->setStatus($status);
+      if(empty($email) || filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
+        $errors['email'] = "Ce n'est pas une adresse mail valide";
+      }
+      // si c'est le même mot de passe que celui de la bdd alors on ne vérifie, le mdp est déjà hashé donc risque d'erreur sur la vérification qu'on veut
+      if (password_verify($password, $editUser->getPassword()) === true) {
+        if (!preg_match('/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!.\?]{8,50}$/', $password)) {
+          $errors['password'] = "Ce n'est pas un mot de passe valide";
+        }
+      }
+      if(empty($firstname) || is_numeric($firstname[0])) {
+        $errors['firstname'] = "Ce n'est pas un prénom valide";
+      }
+      if(empty($lastname) || is_numeric($lastname[0])) {
+        $errors['lastname'] = "Ce n'est pas un nom valide";
+      }
+      if(empty($role) || is_numeric($role)) {
+        $errors['role'] = "Veuillez renseigner le role";
+      }
+      if(empty($status) || !is_numeric($status) || $status > 2 || $status < 0) {
+        $errors['status'] = "Veuillez renseigner le statut";
+      }
 
-      // dd($editUser);
+      if(!empty($errors)) {
+        $this->show('user/add', $errors);
+      } else {
 
-      $editUser->update($routeInfo);
+        $editUser->setEmail($email);
+        $editUser->setPassword(password_hash($password, PASSWORD_DEFAULT));
+        $editUser->setFirstname($firstname);
+        $editUser->setLastname($lastname);
+        $editUser->setRole($role);
+        $editUser->setStatus($status);
 
-      // dd($editUser);
+        $editUser->update($routeInfo);
 
-      global $router;
-      header('Location: ' . $router->generate('user-update', ['userId' => $routeInfo]));
-      exit();
+        global $router;
+        header('Location:'.$router->generate('user-update', ['userId' => $routeInfo]));
+        exit();
+      }
+      
     }
 
     public function delete(int $routeInfo) {
