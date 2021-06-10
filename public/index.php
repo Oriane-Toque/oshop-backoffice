@@ -53,6 +53,13 @@ $router->map(
     'main-home'
 );
 
+$router->map(
+    'POST',
+    '/',
+    '\App\Controllers\MainController::update',
+    'main-update'
+);
+
 //?=========================================================
 //?================= ALL ROUTES CATEGORY ===================
 
