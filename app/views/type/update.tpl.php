@@ -4,7 +4,8 @@
 <form action="<?= $router->generate('type-update', ['typeId' => $type->getId()]); ?>" method="POST" class="mt-5">
     <div class="form-group">
         <label for="name">Nom</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Nom de la catégorie" value="<?= $type->getName(); ?>">
+        <?= isset($name) ? '<p style="color:red;">'.$name.'</p>' : ''; ?>
+        <input type="text" name="name" id="name" class="form-control" placeholder="Nom de la catégorie" value="<?= isset($_POST['name']) ? $_POST['name'] : $type->getName(); ?>">
     </div>
     <button type="submit" class="btn btn-primary btn-block mt-5">Valider</button>
 </form>

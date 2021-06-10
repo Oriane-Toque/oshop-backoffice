@@ -29,9 +29,9 @@
         <label for="role">Rôle</label>
         <?= isset($role) ? '<p style="color:red;">'.$role.'</p>' : ''; ?>
         <select class="custom-select" id="role" name="role">
-          <option value="admin" <?= isset($_POST['role']) && $_POST['role'] == 'admin' ? 'selected' : ''; ?>>Admin</option>
-          <option value="catalog-manager" <?= isset($_POST['role']) && $_POST['role'] == 'catalog-manager' ? 'selected' : ''; ?>>Catalog Manager</option>
-          <option value="empty" <?= isset($_POST['role']) && $_POST['role'] == 'empty' ? 'selected' : ''; ?>>Indéfinis</option>
+          <option value="2" <?= isset($_POST['role']) && $_POST['role'] == 'admin' ? 'selected' : ''; ?>>Admin</option>
+          <option value="1" <?= isset($_POST['role']) && $_POST['role'] == 'catalog-manager' ? 'selected' : ''; ?>>Catalog Manager</option>
+          <option value="0" <?= isset($_POST['role']) && $_POST['role'] == 'empty' ? 'selected' : ''; ?>>Indéfinis</option>
         </select>
     </div>
     <div class="form-group">

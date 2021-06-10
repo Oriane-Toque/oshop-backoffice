@@ -160,7 +160,7 @@
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
         $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
         $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
-        $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
+        $role = filter_input(INPUT_POST, 'role', FILTER_VALIDATE_INT);
         $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
       }
 
@@ -176,7 +176,7 @@
       if(empty($lastname) || is_numeric($lastname[0])) {
         $errors['lastname'] = "Ce n'est pas un nom valide";
       }
-      if(empty($role) || is_numeric($role)) {
+      if(empty($role) || !is_numeric($role)) {
         $errors['role'] = "Veuillez renseigner le role";
       }
       if(empty($status) || !is_numeric($status) || $status > 2 || $status < 0) {
@@ -230,7 +230,7 @@
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
         $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
         $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
-        $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
+        $role = filter_input(INPUT_POST, 'role', FILTER_VALIDATE_INT);
         $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
       }
 
@@ -251,7 +251,7 @@
       if(empty($lastname) || is_numeric($lastname[0])) {
         $errors['lastname'] = "Ce n'est pas un nom valide";
       }
-      if(empty($role) || is_numeric($role)) {
+      if(empty($role) || !is_numeric($role)) {
         $errors['role'] = "Veuillez renseigner le role";
       }
       if(empty($status) || !is_numeric($status) || $status > 2 || $status < 0) {

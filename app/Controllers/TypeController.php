@@ -57,18 +57,33 @@
 
       $this->checkAuthorization($rolesRequis);
 
-      $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      $errors = [];
 
-      // je dois créer un nouveau model et lui donner les infos
-      $newType = new Type();
-      $newType->setName($name);
+      if (isset($_POST)) {
+        $name = filter_input(INPUT_POST, 'name',FILTER_SANITIZE_STRING);
+      }
 
-      // je dois inserer mon model en base
-      $newType->insert();
+      if(empty($name) || is_numeric($name) || is_numeric($name[0])) {
+        $errors['name'] = "Ce n'est pas un nom valide";
+      }
 
-      global $router;
-      header('Location: ' . $router->generate('type-list'));
-      exit();
+      if(!empty($errors)) {
+        // rappelle titre de la page
+        $errors['titrePage'] = "Ajouter un type";
+        $this->show('type/add', $errors);
+      } else {
+
+        // je dois créer un nouveau model et lui donner les infos
+        $newType = new Type();
+        $newType->setName($name);
+
+        // je dois inserer mon model en base
+        $newType->insert();
+
+        global $router;
+        header('Location: ' . $router->generate('type-list'));
+        exit();
+      }
     }
 
     /**
@@ -104,20 +119,37 @@
 
       $this->checkAuthorization($rolesRequis);
       
-      $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      $errors = [];
 
+      if (isset($_POST)) {
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      }
       // dump($name);
 
-      $editType = Type::find($routeInfo);
-      // modification des propriétés liées à l'instance
-      // affectation des données du formulaire
-      $editType->setName($name);
+      if(empty($name) || is_numeric($name) || is_numeric($name[0])) {
+        $errors['name'] = "Ce n'est pas un nom valide";
+      }
 
-      $editType->update($routeInfo);
+      if(!empty($errors)) {
+        // rappelle titre de la page
+        // et les données de notre modèle
+        $typeModel = Type::find($routeInfo);
+        $errors['type'] = $typeModel;
+        $errors['titrePage'] = "Modifier un type";
 
-      global $router;
-      header('Location: ' . $router->generate('type-update', ['typeId' => $routeInfo]));
-      exit();
+        $this->show('type/update', $errors);
+      } else {
+        $editType = Type::find($routeInfo);
+        // modification des propriétés liées à l'instance
+        // affectation des données du formulaire
+        $editType->setName($name);
+
+        $editType->update($routeInfo);
+
+        global $router;
+        header('Location: ' . $router->generate('type-list'));
+        exit();
+      }
     }
 
     /**
