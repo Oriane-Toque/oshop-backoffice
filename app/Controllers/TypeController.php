@@ -41,7 +41,7 @@
 
       $this->checkAuthorization($rolesRequis);
 
-      $typeData['titrePage'] = 'Ajouter une type';
+      $typeData['titrePage'] = 'Ajouter un type';
 
       $this->show('type/add', $typeData);
     }
@@ -86,7 +86,7 @@
       $typeModel = Type::find($routeInfo);
       // je stocke les information de la type selectionnait par l'admin
       $typeData['type'] = $typeModel;
-      $typeData['titrePage'] = 'Modifier une type';
+      $typeData['titrePage'] = 'Modifier un type';
 
       // dump($typeData);
 

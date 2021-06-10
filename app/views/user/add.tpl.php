@@ -1,5 +1,5 @@
 <a href="<?= $router->generate('user-list') ?>" class="btn btn-success float-right">Retour</a>
-<h2>Ajouter un produit</h2>
+<h2>Ajouter un utilisateur</h2>
 
 <form action="<?= $router->generate('user-add') ?>" method="POST" class="mt-5">
     <div class="form-group">
