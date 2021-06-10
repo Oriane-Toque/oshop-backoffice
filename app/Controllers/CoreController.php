@@ -5,6 +5,19 @@ namespace App\Controllers;
 class CoreController
 {
     /**
+     * Méthode de construction appelé lors du new
+     */
+    public function __construct()
+    {
+        // TODO $router ...
+
+        // avant on faisait des ACE mais pas pratique
+        // TODO ACL
+
+        // controlleur : CategoryController
+        // method : list
+    }
+    /**
      * Méthode permettant d'afficher du code HTML en se basant sur les views
      *
      * @param string $viewName Nom du fichier de vue

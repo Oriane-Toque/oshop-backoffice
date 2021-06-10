@@ -13,12 +13,6 @@
      */
     public function login()
     {
-      // pour ne pas avoir la navigation
-      // mais il va manquer le header :'(
-      /*
-          require_once __DIR__.'/../views/user/login.tpl.php';
-          require_once __DIR__.'/../views/layout/footer.tpl.php';
-          */
       $loginData['titrePage'] = 'Connexion';
 
       // méthode avec la navigation, à revoir
