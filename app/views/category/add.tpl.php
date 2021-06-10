@@ -4,18 +4,21 @@
 <form action="<?= $router->generate('category-add') ?>" method="POST" class="mt-5">
     <div class="form-group">
         <label for="name">Nom</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Nom de la catégorie">
+        <?= isset($name) ? '<p style="color:red;">'.$name.'</p>' : ''; ?>
+        <input type="text" name="name" id="name" class="form-control" placeholder="Nom de la catégorie" value="<?= isset($_POST['name']) ? $_POST['name'] : ''; ?>">
     </div>
     <div class="form-group">
         <label for="subtitle">Sous-titre</label>
-        <input type="text" class="form-control" name="subtitle"  id="subtitle" placeholder="Sous-titre" aria-describedby="subtitleHelpBlock">
+        <?= isset($subtitle) ? '<p style="color:red;">'.$subtitle.'</p>' : ''; ?>
+        <input type="text" class="form-control" name="subtitle"  id="subtitle" placeholder="Sous-titre" aria-describedby="subtitleHelpBlock" value="<?= isset($_POST['subtitle']) ? $_POST['subtitle'] : ''; ?>">
         <small id="subtitleHelpBlock" class="form-text text-muted">
             Sera affiché sur la page d'accueil comme bouton devant l'image
         </small>
     </div>
     <div class="form-group">
         <label for="picture">Image</label>
-        <input type="text" class="form-control" name="picture" id="picture" placeholder="image jpg, gif, svg, png" aria-describedby="pictureHelpBlock">
+        <?= isset($picture) ? '<p style="color:red;">'.$picture.'</p>' : ''; ?>
+        <input type="text" class="form-control" name="picture" id="picture" placeholder="image jpg, gif, svg, png" aria-describedby="pictureHelpBlock" value="<?= isset($_POST['picture']) ? $_POST['picture'] : ''; ?>">
         <small id="pictureHelpBlock" class="form-text text-muted">
             URL relative d'une image (jpg, gif, svg ou png) fournie sur <a href="https://benoclock.github.io/S06-images/" target="_blank">cette page</a>
         </small>

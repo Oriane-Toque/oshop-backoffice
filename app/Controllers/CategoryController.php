@@ -65,30 +65,44 @@
       $rolesRequis[] = 'catalog-manager';
 
       $this->checkAuthorization($rolesRequis);
-      // je dois récuperer les données dans $_POST
-      // 1ere solution : $name = $_POST['name']
-      // 2eme solution : $name = filter_input(INPUT_POST, 'name');
-      // 3eme solution : $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-      $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-      $subtitle = filter_input(INPUT_POST, 'subtitle', FILTER_SANITIZE_STRING);
-      $picture = filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_URL);
 
-      // je dois créer un nouveau model et lui donner les infos
-      $newCategory = new Category();
-      $newCategory->setName($name);
-      $newCategory->setSubtitle($subtitle);
-      $newCategory->setPicture($picture);
+      $errors = [];
 
-      // je dois inserer mon model en base
-      $newCategory->insert();
+      if (isset($_POST)) {
+        $name = filter_input(INPUT_POST, 'name',FILTER_SANITIZE_STRING);
+        $subtitle = filter_input(INPUT_POST, 'subtitle', FILTER_SANITIZE_STRING);
+        $picture = filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_URL);
+      }
 
-      //dd($_POST);
-      // redirige sur le HOME
-      // header('Location: /');
-      // utilise le routeur, mais utiliser aussi global :'(
-      global $router;
-      header('Location: ' . $router->generate('category-list'));
-      exit();
+      if(empty($name) || is_numeric($name) || is_numeric($name[0])) {
+        $errors['name'] = "Ce n'est pas un nom valide";
+      }
+      if(empty($subtitle) || is_numeric($subtitle) || is_numeric($subtitle[0])) {
+        $errors['subtitle'] = "Ce n'est pas un sous-titre valide";
+      }
+      if(empty($picture) || !preg_match('/(\.jpg|\.jpeg|\.png|\.gif|\.svg)$/i', $picture)) {
+        $errors['picture'] = "Ce n'est pas une image valide";
+      }
+
+      if(!empty($errors)) {
+        // rappelle titre de la page
+        $errors['titrePage'] = "Ajouter une catégorie";
+        $this->show('category/add', $errors);
+      } else {
+
+        // je dois créer un nouveau model et lui donner les infos
+        $newCategory = new Category();
+        $newCategory->setName($name);
+        $newCategory->setSubtitle($subtitle);
+        $newCategory->setPicture($picture);
+
+        // je dois inserer mon model en base
+        $newCategory->insert();
+
+        global $router;
+        header('Location: ' . $router->generate('category-list'));
+        exit();
+      }
     }
 
     /**
