@@ -81,4 +81,18 @@ class CoreController
         // header('Location:' . $router->generate('user-login'));
         exit();
     }
+
+    /**
+     * Vérifie si la personne est connecté
+     *
+     * @return boolean
+     */
+    public static function isConnected() {
+
+        if(isset($_SESSION['userObject'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

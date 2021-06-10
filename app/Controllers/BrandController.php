@@ -56,18 +56,31 @@
 
       $this->checkAuthorization($rolesRequis);
 
-      $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      $errors = [];
 
-      // je dois créer un nouveau model et lui donner les infos
-      $newBrand = new Brand();
-      $newBrand->setName($name);
+      if (isset($_POST)) {
+        $name = filter_input(INPUT_POST, 'name',FILTER_SANITIZE_STRING);
+      }
 
-      // je dois inserer mon model en base
-      $newBrand->insert();
+      if(empty($name) || is_numeric($name) || is_numeric($name[0])) {
+        $errors['name'] = "Ce n'est pas un nom valide";
+      }
 
-      global $router;
-      header('Location: ' . $router->generate('brand-list'));
-      exit();
+      if(!empty($errors)) {
+        $this->show('brand/add', $errors);
+      } else {
+
+        // je dois créer un nouveau model et lui donner les infos
+        $newBrand = new Brand();
+        $newBrand->setName($name);
+
+        // je dois inserer mon model en base
+        $newBrand->insert();
+
+        global $router;
+        header('Location: ' . $router->generate('brand-list'));
+        exit();
+      }
     }
 
     /**

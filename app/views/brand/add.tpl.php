@@ -4,7 +4,8 @@
 <form action="<?= $router->generate('brand-add') ?>" method="POST" class="mt-5">
     <div class="form-group">
         <label for="name">Nom</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Nom de la marque">
+        <?= isset($name) ? '<p style="color:red;">'.$name.'</p>' : ''; ?>
+        <input type="text" name="name" id="name" class="form-control" placeholder="Nom de la marque" value="<?= isset($_POST['name']) ? $_POST['name'] : ''; ?>">
     </div>
     
     <button type="submit" class="btn btn-primary btn-block mt-5">Valider</button>

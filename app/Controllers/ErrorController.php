@@ -21,7 +21,7 @@ class ErrorController extends CoreController {
         $this->show('error/err404', $errorData);
     }
     /**
-     * Méthode gérant l'affichage de la page 404
+     * Méthode gérant l'affichage de la page 403
      *
      * @return void
      */

@@ -21,13 +21,17 @@
 
 <body>
 
-  <?php
-    if($viewName === 'user/login') {
-      // On inclut des sous-vues => "partials"
-      include __DIR__ . '/../partials/nav.connect.tpl.php';
-    } else {
-      include __DIR__ . '/../partials/nav.tpl.php';
-    }
-  ?>
+<?php
+
+  use App\Controllers\CoreController;
+
+  if(CoreController::isConnected()) {
+    include __DIR__ . '/../partials/nav.tpl.php';
+  } else {
+    // On inclut des sous-vues => "partials"
+    include __DIR__ . '/../partials/nav.connect.tpl.php';
+  }
+
+?>
 
 <div class="container my-4">
