@@ -67,6 +67,8 @@
       }
 
       if(!empty($errors)) {
+        // rappelle titre de la page
+        $errors['titrePage'] = "Ajouter une marque";
         $this->show('brand/add', $errors);
       } else {
 
@@ -116,20 +118,37 @@
 
       $this->checkAuthorization($rolesRequis);
 
-      $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      $errors = [];
 
+      if (isset($_POST)) {
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+      }
       // dump($name);
 
-      $editBrand = Brand::find($routeInfo);
-      // modification des propriétés liées à l'instance
-      // affectation des données du formulaire
-      $editBrand->setName($name);
+      if(empty($name) || is_numeric($name) || is_numeric($name[0])) {
+        $errors['name'] = "Ce n'est pas un nom valide";
+      }
 
-      $editBrand->update($routeInfo);
+      if(!empty($errors)) {
+        // rappelle titre de la page
+        // et les données de notre modèle
+        $brandModel = Brand::find($routeInfo);
+        $errors['brand'] = $brandModel;
+        $errors['titrePage'] = "Modifier une marque";
 
-      global $router;
-      header('Location: ' . $router->generate('brand-update', ['brandId' => $routeInfo]));
-      exit();
+        $this->show('brand/update', $errors);
+      } else {
+        $editBrand = Brand::find($routeInfo);
+        // modification des propriétés liées à l'instance
+        // affectation des données du formulaire
+        $editBrand->setName($name);
+
+        $editBrand->update($routeInfo);
+
+        global $router;
+        header('Location: ' . $router->generate('brand-list'));
+        exit();
+      }
     }
 
     /**
