@@ -6,11 +6,12 @@ class CoreController
 {
     /**
      * Méthode de construction appelé lors du new
-     * $dispatcher->setControllersArguments($router, $_SERVER['BASE_URI'], $match);
      */
     public function __construct()
     {
         // TODO $router ...
+        // FAIRE DANS INDEX : $dispatcher->setControllersArguments($router, $_SERVER['BASE_URI'], $match);
+        // + APPEL
 
         // avant on faisait des ACE mais pas pratique
         // TODO ACL

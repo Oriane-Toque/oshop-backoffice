@@ -1,7 +1,7 @@
 <?php
 
-// POINT D'ENTRÉE UNIQUE : 
-// FrontController
+//? POINT D'ENTRÉE UNIQUE : 
+//? FrontController
 
 // inclusion des dépendances via Composer
 // autoload.php permet de charger d'un coup toutes les dépendances installées avec composer
@@ -11,10 +11,8 @@ require_once '../vendor/autoload.php';
 // on démarre la session pour permettre la connexion utilisteur
 session_start();
 
-/* ------------
---- ROUTAGE ---
--------------*/
-
+//?=========================================================
+//?======================= ROUTAGE =========================
 
 // création de l'objet router
 // Cet objet va gérer les routes pour nous, et surtout il va 
@@ -34,8 +32,8 @@ else {
     $_SERVER['BASE_URI'] = '/';
 }
 
-// On doit déclarer toutes les "routes" à AltoRouter, afin qu'il puisse nous donner LA "route" correspondante à l'URL courante
-// On appelle cela "mapper" les routes
+//? On doit déclarer toutes les "routes" à AltoRouter, afin qu'il puisse nous donner LA "route" correspondante à l'URL courante
+//? On appelle cela "mapper" les routes
 // 1. méthode HTTP : GET ou POST (pour résumer)
 // 2. La route : la portion d'URL après le basePath
 // 3. Target/Cible : informations contenant
@@ -44,6 +42,10 @@ else {
 // 4. Le nom de la route : pour identifier la route, on va suivre une convention
 //      - "NomDuController-NomDeLaMéthode"
 //      - ainsi pour la route /, méthode "home" du MainController => "main-home"
+
+//?=========================================================
+//?======================= MAPPAGE =========================
+
 $router->map(
     'GET',
     '/',
@@ -51,10 +53,10 @@ $router->map(
     'main-home'
 );
 
-//=========================================================
-// ================ ALL ROUTES CATEGORY ===================
+//?=========================================================
+//?================= ALL ROUTES CATEGORY ===================
 
-// ROUTE VERS LA LISTE DES CATEGORIES
+//? ROUTE VERS LA LISTE DES CATEGORIES
 $router->map(
     'GET',
     '/category/list',
@@ -62,7 +64,7 @@ $router->map(
     'category-list'
 );
 
-// ROUTE VERS LE FORMULAIRE D'AJOUT CATEGORIE
+//? ROUTE VERS LE FORMULAIRE D'AJOUT CATEGORIE
 $router->map(
     'GET',
     '/category/add',
@@ -70,7 +72,7 @@ $router->map(
     'category-add'
 );
 
-// AJOUT CATEGORY
+//? AJOUT CATEGORY
 $router->map(
     'POST',
     '/category/add',
@@ -78,7 +80,7 @@ $router->map(
     'category-create'
 );
 
-// ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE CATEGORIE
+//? ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE CATEGORIE
 $router->map(
     'GET',
     '/category/update/[i:categoryId]',
@@ -86,7 +88,7 @@ $router->map(
     'category-update'
 );
 
-// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE CATEGORY
+//? ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE CATEGORY
 $router->map(
     'POST',
     '/category/update/[i:categoryId]',
@@ -94,7 +96,7 @@ $router->map(
     'category-edit'
 );
 
-// ROUTE POUR LA SUPPRESSION D'UNE CATEGORIE
+//? ROUTE POUR LA SUPPRESSION D'UNE CATEGORIE
 $router->map(
     'GET',
     '/category/delete/[i:categoryId]',
@@ -103,10 +105,10 @@ $router->map(
 );
 
 
-//=========================================================
-// ================ ALL ROUTES PRODUCTS ===================
+//?=========================================================
+//?================= ALL ROUTES PRODUCTS ===================
 
-// ROUTE VERS LA LISTE DES PRODUITS
+//? ROUTE VERS LA LISTE DES PRODUITS
 $router->map(
     'GET',
     '/product/list',
@@ -114,7 +116,7 @@ $router->map(
     'product-list'
 );
 
-// ROUTE VERS LE FORMULAIRE D'AJOUT PRODUIT
+//? ROUTE VERS LE FORMULAIRE D'AJOUT PRODUIT
 $router->map(
     'GET',
     '/product/add',
@@ -122,7 +124,7 @@ $router->map(
     'product-add'
 );
 
-// AJOUT PRODUIT
+//? AJOUT PRODUIT
 $router->map(
     'POST',
     '/product/add',
@@ -130,7 +132,7 @@ $router->map(
     'product-create'
 );
 
-// ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE PRODUIT
+//? ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE PRODUIT
 $router->map(
     'GET',
     '/product/update/[i:productId]',
@@ -138,7 +140,7 @@ $router->map(
     'product-update'
 );
 
-// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE PRODUIT
+//? ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE PRODUIT
 $router->map(
     'POST',
     '/product/update/[i:productId]',
@@ -146,7 +148,7 @@ $router->map(
     'product-edit'
 );
 
-// ROUTE POUR LA SUPPRESSION D'UN PRODUIT
+//? ROUTE POUR LA SUPPRESSION D'UN PRODUIT
 $router->map(
     'GET',
     '/product/delete/[i:productId]',
@@ -155,10 +157,10 @@ $router->map(
 );
 
 
-//=========================================================
-// ================== ALL ROUTES BRANDS ===================
+//?=========================================================
+//?=================== ALL ROUTES BRANDS ===================
 
-// ROUTE VERS LA LISTE DES MARQUES
+//? ROUTE VERS LA LISTE DES MARQUES
 $router->map(
     'GET',
     '/brand/list',
@@ -166,7 +168,7 @@ $router->map(
     'brand-list'
 );
 
-// ROUTE VERS LE FORMULAIRE D'AJOUT MARQUE
+//? ROUTE VERS LE FORMULAIRE D'AJOUT MARQUE
 $router->map(
     'GET',
     '/brand/add',
@@ -174,7 +176,7 @@ $router->map(
     'brand-add'
 );
 
-// AJOUT TYPE
+//? AJOUT TYPE
 $router->map(
     'POST',
     '/brand/add',
@@ -182,7 +184,7 @@ $router->map(
     'brand-create'
 );
 
-// ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE MARQUE
+//? ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE MARQUE
 $router->map(
     'GET',
     '/brand/update/[i:brandId]',
@@ -190,7 +192,7 @@ $router->map(
     'brand-update'
 );
 
-// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE MARQUE
+//? ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE MARQUE
 $router->map(
     'POST',
     '/brand/update/[i:brandId]',
@@ -198,7 +200,7 @@ $router->map(
     'brand-edit'
 );
 
-// ROUTE POUR LA SUPPRESSION D'UNE MARQUE
+//? ROUTE POUR LA SUPPRESSION D'UNE MARQUE
 $router->map(
     'GET',
     '/brand/delete/[i:brandId]',
@@ -207,10 +209,10 @@ $router->map(
 );
 
 
-//=========================================================
-// ================== ALL ROUTES TYPES ===================
+//?=========================================================
+//?=================== ALL ROUTES TYPES ====================
 
-// ROUTE VERS LA LISTE DES TYPES
+//? ROUTE VERS LA LISTE DES TYPES
 $router->map(
     'GET',
     '/type/list',
@@ -218,7 +220,7 @@ $router->map(
     'type-list'
 );
 
-// ROUTE VERS LE FORMULAIRE D'AJOUT TYPE
+//? ROUTE VERS LE FORMULAIRE D'AJOUT TYPE
 $router->map(
     'GET',
     '/type/add',
@@ -226,7 +228,7 @@ $router->map(
     'type-add'
 );
 
-// AJOUT TYPE
+//? AJOUT TYPE
 $router->map(
     'POST',
     '/type/add',
@@ -234,7 +236,7 @@ $router->map(
     'type-create'
 );
 
-// ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE TYPE
+//? ROUTE MENANT AU FORMULAIRE DE MODIFICATIONS DE TYPE
 $router->map(
     'GET',
     '/type/update/[i:typeId]',
@@ -242,7 +244,7 @@ $router->map(
     'type-update'
 );
 
-// ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE TYPE
+//? ROUTE GERANT LES MODIFICATIONS ENVOYÉES PAR LE FORMULAIRE TYPE
 $router->map(
     'POST',
     '/type/update/[i:typeId]',
@@ -250,7 +252,7 @@ $router->map(
     'type-edit'
 );
 
-// ROUTE POUR LA SUPPRESSION D'UN TYPE
+//? ROUTE POUR LA SUPPRESSION D'UN TYPE
 $router->map(
     'GET',
     '/type/delete/[i:typeId]',
@@ -259,10 +261,10 @@ $router->map(
 );
 
 
-//=========================================================
-// ================== ALL ROUTES USER =====================
+//?=========================================================
+//?=================== ALL ROUTES USER =====================
 
-// ROUTE FORMULAIRE DE CONNEXION
+//? ROUTE FORMULAIRE DE CONNEXION
 $router->map(
     'GET',
     '/user/login',
@@ -270,7 +272,7 @@ $router->map(
     'user-login'
 );
 
-// ROUTE TRAITEMENT DU FORMULAIRE DE CONNEXION
+//? ROUTE TRAITEMENT DU FORMULAIRE DE CONNEXION
 $router->map(
     'POST',
     '/user/login',
@@ -278,7 +280,7 @@ $router->map(
     'user-connect'
 );
 
-// ROUTE DECONNEXION UTILISATEUR
+//? ROUTE DECONNEXION UTILISATEUR
 $router->map(
     'GET',
     '/user/logout',
@@ -286,10 +288,10 @@ $router->map(
     'user-logout'
 );
 
-//=========================================================
-// ================ ALL ROUTES SUPERADMIN =================
+//?========================================================
+//?================ ALL ROUTES SUPERADMIN =================
 
-// ROUTE LISTE DES UTILISATEURS
+//? ROUTE LISTE DES UTILISATEURS
 $router->map(
     'GET',
     '/user/list', 
@@ -297,7 +299,7 @@ $router->map(
     'user-list'
 );
 
-// ROUTE VERS LE FORMULAIRE D'AJOUT DES UTILISATEURS
+//? ROUTE VERS LE FORMULAIRE D'AJOUT DES UTILISATEURS
 $router->map(
     'GET',
     '/user/add',
@@ -305,7 +307,7 @@ $router->map(
     'user-add'
 );
 
-// ROUTE TRAITEMENT DU FORMULAIRE D'AJOUT UTILISATEURS
+//? ROUTE TRAITEMENT DU FORMULAIRE D'AJOUT UTILISATEURS
 $router->map(
     'POST',
     '/user/add',
@@ -313,7 +315,7 @@ $router->map(
     'user-create'
 );
 
-// ROUTE FORMULAIRE DE MODIFICATIONS UTILISATEURS
+//? ROUTE FORMULAIRE DE MODIFICATIONS UTILISATEURS
 $router->map(
     'GET',
     '/user/update/[i:userId]',
@@ -321,7 +323,7 @@ $router->map(
     'user-update'
 );
 
-// ROUTE TRAITEMENT DU FORMULAIRE DE MODIFICATIONS UTILISATEURS
+//? ROUTE TRAITEMENT DU FORMULAIRE DE MODIFICATIONS UTILISATEURS
 $router->map(
     'POST',
     '/user/update/[i:userId]',
@@ -329,7 +331,7 @@ $router->map(
     'user-edit'
 );
 
-// ROUTE POUR SUPPRIMER UN UTILISATEUR
+//? ROUTE POUR SUPPRIMER UN UTILISATEUR
 $router->map(
     'GET',
     '/user/delete/[i:userId]',
@@ -337,9 +339,8 @@ $router->map(
     'user-delete'
 );
 
-/* -------------
---- DISPATCH ---
---------------*/
+//?=========================================================
+//?======================= DISPATCH ========================
 
 // On demande à AltoRouter de trouver une route qui correspond à l'URL courante
 $match = $router->match();
