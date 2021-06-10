@@ -4,6 +4,7 @@
 
 <form action="<?= $router->generate('main-home'); ?>" method="POST" class="mt-5">
     <legend>Gestion de la page d'accueil</legend>
+    <?= isset($dupes) ? '<p style="color:red;">'.$dupes.'</p>' : ''; ?>
     <div class="row">
         <div class="col">
             <div class="form-group">
