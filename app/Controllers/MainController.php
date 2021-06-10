@@ -32,4 +32,16 @@ class MainController extends CoreController
 
     $this->show('main/home', $homeList);
   }
+
+  public function update() {
+    
+    // dd($_POST);
+    $position1 = filter_input(INPUT_POST, 'emplacement1', FILTER_VALIDATE_INT);
+    $position2 = filter_input(INPUT_POST, 'emplacement2', FILTER_VALIDATE_INT);
+    $position3 = filter_input(INPUT_POST, 'emplacement3', FILTER_VALIDATE_INT);
+    $position4 = filter_input(INPUT_POST, 'emplacement4', FILTER_VALIDATE_INT);
+    $position5 = filter_input(INPUT_POST, 'emplacement5', FILTER_VALIDATE_INT);
+
+    // dd($position1);
+  }
 }
