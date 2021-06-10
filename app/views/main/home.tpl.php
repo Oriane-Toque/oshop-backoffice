@@ -11,7 +11,7 @@
                 <select class="form-control" id="emplacement1" name="emplacement1">
                     <option value="">choisissez :</option>
                   <?php foreach($categoryList as $category) : ?>
-                    <option value="<?= $category->getId(); ?>" <?= $category->getHomeOrder() == 1 ? 'selected' : '' ?>><?= $category->getName(); ?></option>
+                    <option value="1" <?= $category->getHomeOrder() == 1 ? 'selected' : '' ?>><?= $category->getName(); ?></option>
                   <?php endforeach; ?>
                 </select>
             </div>
@@ -22,7 +22,7 @@
                 <select class="form-control" id="emplacement2" name="emplacement2">
                     <option value="">choisissez :</option>
                   <?php foreach($categoryList as $category) : ?>
-                    <option value="<?= $category->getId(); ?>" <?= $category->getHomeOrder() == 2 ? 'selected' : '' ?>><?= $category->getName(); ?></option>
+                    <option value="<?= $category->getHomeOrder(); ?>" <?= $category->getHomeOrder() == 2 ? 'selected' : '' ?>><?= $category->getName(); ?></option>
                   <?php endforeach; ?>
                 </select>
             </div>
@@ -35,7 +35,7 @@
                 <select class="form-control" id="emplacement3" name="emplacement3">
                     <option value="">choisissez :</option>
                   <?php foreach($categoryList as $category) : ?>
-                    <option value="<?= $category->getId(); ?>" <?= $category->getHomeOrder() == 3 ? 'selected' : '' ?>><?= $category->getName(); ?></option>
+                    <option value="<?= $category->getHomeOrder(); ?>" <?= $category->getHomeOrder() == 3 ? 'selected' : '' ?>><?= $category->getName(); ?></option>
                   <?php endforeach; ?>
                 </select>
             </div>
@@ -46,7 +46,7 @@
                 <select class="form-control" id="emplacement4" name="emplacement4">
                     <option value="">choisissez :</option>
                   <?php foreach($categoryList as $category) : ?>
-                    <option value="<?= $category->getId(); ?>" <?= $category->getHomeOrder() == 4 ? 'selected' : '' ?>><?= $category->getName(); ?></option>
+                    <option value="<?= $category->getHomeOrder(); ?>" <?= $category->getHomeOrder() == 4 ? 'selected' : '' ?>><?= $category->getName(); ?></option>
                   <?php endforeach; ?>
                 </select>
             </div>
@@ -57,7 +57,7 @@
                 <select class="form-control" id="emplacement5" name="emplacement5">
                     <option value="">choisissez :</option>
                   <?php foreach($categoryList as $category) : ?>
-                    <option value="<?= $category->getId(); ?>" <?= $category->getHomeOrder() == 5 ? 'selected' : '' ?>><?= $category->getName(); ?></option>
+                    <option value="<?= $category->getHomeOrder(); ?>" <?= $category->getHomeOrder() == 5 ? 'selected' : '' ?>><?= $category->getName(); ?></option>
                   <?php endforeach; ?>
                 </select>
             </div>

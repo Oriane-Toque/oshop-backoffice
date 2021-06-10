@@ -43,5 +43,18 @@ class MainController extends CoreController
     $position5 = filter_input(INPUT_POST, 'emplacement5', FILTER_VALIDATE_INT);
 
     // dd($position1);
+
+    $homeList = Category::findAllHomePage();
+
+    // dd($homeList);
+    $homeList[0]->setHomeOrder($position1);
+    $homeList[1]->setHomeOrder($position2);
+    $homeList[2]->setHomeOrder($position3);
+    $homeList[3]->setHomeOrder($position4);
+    $homeList[4]->setHomeOrder($position5);
+    // dd($homeList);
+
+    // $homeList->setHomeOrder($position1);
+    
   }
 }
