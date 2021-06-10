@@ -4,4 +4,8 @@
     La ressource demandée n'existe pas...
 </p>
 
-<a href="<?= $router->generate('main-home') ?>">retour à l'accueil</a>
+<a href="<?= $router->generate('main-home') ?>">
+  <button class="btn btn-primary">
+    retour à l'accueil
+  </button>
+</a>

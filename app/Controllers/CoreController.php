@@ -74,8 +74,11 @@ class CoreController
             }
         }
 
+        $errorModel = new ErrorController();
+        $errorModel->err403();
+
         // qu'est ce que je fait si l'utilisateur n'a pas les droits ?
-        header('Location:' . $router->generate('user-login'));
+        // header('Location:' . $router->generate('user-login'));
         exit();
     }
 }

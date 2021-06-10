@@ -10,12 +10,31 @@ class ErrorController extends CoreController {
      * @return void
      */
     public function err404() {
+        
+        http_response_code(404);
         // On envoie le header 404
-        header('HTTP/1.0 404 Not Found');
+        header('HTTP/1.0 404 Not Found');;
 
         $errorData['titrePage'] = 'Error 404';
 
         // Puis on gère l'affichage
         $this->show('error/err404', $errorData);
+    }
+    /**
+     * Méthode gérant l'affichage de la page 404
+     *
+     * @return void
+     */
+    public function err403() {
+        // code de reponse http
+        http_response_code(403);
+        
+        // On envoie le header 403
+        header('HTTP/1.0 403 Not Found');
+
+        $errorData['titrePage'] = 'Error 403';
+
+        // Puis on gère l'affichage
+        $this->show('error/err403', $errorData);
     }
 }
