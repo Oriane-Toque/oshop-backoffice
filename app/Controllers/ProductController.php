@@ -18,9 +18,7 @@
      */
     public function list()
     {
-      $rolesRequis[] = 'catalog-manager';
 
-      $this->checkAuthorization($rolesRequis);
       // Class::method grâce à static qui ne lie plus la méthode à l'instance
       $listModel = Product::findAll();
 
@@ -38,9 +36,7 @@
      */
     public function add()
     {
-      $rolesRequis[] = 'catalog-manager';
 
-      $this->checkAuthorization($rolesRequis);
       $brandModel = Brand::findAll();
       $categoryModel = Category::findAll();
       $typeModel = Type::findAll();
@@ -60,9 +56,7 @@
      */
     public function create()
     {
-      $rolesRequis[] = 'catalog-manager';
 
-      $this->checkAuthorization($rolesRequis);
       // je dois récuperer les données dans $_POST
       // 1ere solution : $name = $_POST['name']
       // 2eme solution : $name = filter_input(INPUT_POST, 'name');
@@ -103,9 +97,7 @@
 
     public function update(int $routeInfo)
     {
-      $rolesRequis[] = 'catalog-manager';
 
-      $this->checkAuthorization($rolesRequis);
       // récupération des données du produit sélectionné
       $productModel = Product::find($routeInfo);
 
@@ -129,9 +121,7 @@
 
     public function edit(int $routeInfo)
     {      
-      $rolesRequis[] = 'catalog-manager';
 
-      $this->checkAuthorization($rolesRequis);
       // récupération des valeurs du formulaire
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
       $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);

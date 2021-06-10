@@ -16,14 +16,6 @@
     public function list()
     {
 
-      // on définit les roles qui ont le droit d'accès
-      $rolesRequis[] = 'catalog-manager';
-
-
-      // pas besoin de tester le retour de la fonction
-      // car elle vire les gens si c'est pas bon.
-      $this->checkAuthorization($rolesRequis);
-
       // ancienne manière
       // $categoryModel = new Category();
       // $categoryModel->find(1);
@@ -44,11 +36,7 @@
      *
      * @return void
      */
-    public function add()
-    {
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
+    public function add() {    
 
       $categoryData['titrePage'] = 'Ajouter une catégorie';
 
@@ -60,11 +48,7 @@
      * 
      * @return void
      */
-    public function create()
-    {
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
+    public function create() {    
 
       $errors = [];
 
@@ -112,10 +96,6 @@
      * @param int (identifiant de la catégorie)
      */
     public function update(int $routeInfo) {
-
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
       // je récupère toutes les données de ma catégorie selon son id contenu dans $routeInfo
       $categoryModel = Category::find($routeInfo);
       // je stocke les information de la catégorie selectionnait par l'admin
@@ -134,9 +114,6 @@
      * @param int (identifiant de la catégorie)
      */
     public function edit(int $routeInfo) {
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
 
       $errors = [];
 
@@ -190,10 +167,6 @@
      * @return void
      */
     public function delete(int $routeInfo) {
-
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
 
       Category::delete($routeInfo);
 

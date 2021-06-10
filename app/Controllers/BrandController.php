@@ -13,11 +13,8 @@
      *
      * @return void 
      */
-    public function list()
-    {
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
+    public function list() {
+    
       // Class::method grâce à static qui ne lie plus la méthode à l'instance
       $listModel = Brand::findAll();
 
@@ -34,11 +31,8 @@
      *
      * @return void
      */
-    public function add()
-    {
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
+    public function add() {
+    
       
       $brandData['titrePage'] = 'Ajouter une marque';
 
@@ -50,11 +44,8 @@
      * 
      * @return void
      */
-    public function create()
-    {
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
+    public function create() {
+    
 
       $errors = [];
 
@@ -92,10 +83,6 @@
      */
     public function update(int $routeInfo) {
 
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
-
       // je récupère toutes les données de ma marque selon son id contenu dans $routeInfo
       $brandModel = Brand::find($routeInfo);
       // je stocke les information de la marque selectionnait par l'admin
@@ -113,10 +100,6 @@
      * @return void
      */
     public function edit(int $routeInfo) {
-
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
 
       $errors = [];
 
@@ -158,10 +141,6 @@
      * @return void
      */
     public function delete(int $routeInfo) {
-
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
 
       Brand::delete($routeInfo);
 

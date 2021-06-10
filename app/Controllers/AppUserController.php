@@ -111,8 +111,6 @@
 
     public function list() {
 
-      $this->checkAuthorization();
-
       $usersModel = AppUser::findAll();
 
       $usersList['usersList'] = $usersModel;
@@ -128,8 +126,6 @@
      */
     public function add()
     {
-
-      $this->checkAuthorization();
       
       $userData['titrePage'] = 'Ajouter un utilisateur';
 
@@ -143,8 +139,6 @@
      */
     public function create()
     {
-
-      $this->checkAuthorization();
 
       $errors = [];
 
@@ -201,8 +195,6 @@
 
     public function update(int $routeInfo) {
 
-      $this->checkAuthorization();
-
       // je récupère toutes les données de ma marque selon son id contenu dans $routeInfo
       $userModel = AppUser::find($routeInfo);
       // je stocke les information de la marque selectionnait par l'admin
@@ -213,8 +205,6 @@
     }
 
     public function edit(int $routeInfo) {
-
-      $this->checkAuthorization();
 
       $errors = [];
 
@@ -273,8 +263,6 @@
     }
 
     public function delete(int $routeInfo) {
-
-      $this->checkAuthorization();
 
       AppUser::delete($routeInfo);
 

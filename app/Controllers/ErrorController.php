@@ -13,7 +13,7 @@ class ErrorController extends CoreController {
         
         http_response_code(404);
         // On envoie le header 404
-        header('HTTP/1.0 404 Not Found');;
+        header('HTTP/1.0 404 Not Found');
 
         $errorData['titrePage'] = 'Error 404';
 

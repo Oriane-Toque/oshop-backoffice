@@ -6,6 +6,7 @@ class CoreController
 {
     /**
      * Méthode de construction appelé lors du new
+     * $dispatcher->setControllersArguments($router, $_SERVER['BASE_URI'], $match);
      */
     public function __construct()
     {
@@ -13,9 +14,56 @@ class CoreController
 
         // avant on faisait des ACE mais pas pratique
         // TODO ACL
+        // tableau contenant les permissions
+        // permissions accordées en fonction des zones d'accès
+        // ces zones d'accès sont les identifiants uniques de nos routes
+        global $match;
 
-        // controlleur : CategoryController
-        // method : list
+        $acl = [
+            'main-home' => [],
+            'user-logout' => [],
+            'category-list' => [],
+            'category-add' => [],
+            'category-create' => [],
+            'category-update' => [],
+            'category-edit' => [],
+            'category-delete' => [],
+            'type-list' => [],
+            'type-add' => [],
+            'type-create' => [],
+            'type-update' => [],
+            'type-edit' => [],
+            'type-delete' => [],
+            'brand-list' => [],
+            'brand-add' => [],
+            'brand-create' => [],
+            'brand-update' => [],
+            'brand-edit' => [],
+            'brand-delete' => [],
+            'product-list' => [],
+            'product-add' => [],
+            'product-create' => [],
+            'product-update' => [],
+            'product-edit' => [],
+            'product-delete' => [],
+            'user-list' => ['admin'],
+            'user-add' => ['admin'],
+            'user-create' => ['admin'],
+            'user-update' => ['admin'],
+            'user-edit' => ['admin'],
+            'user-delete' => ['admin'],
+        ];
+
+        $zoneAcces = $match['name'];
+        // dump($zoneAcces);
+
+        // je vérifie l'existence de la clé récupéré via $match dans $acl
+        if(array_key_exists($zoneAcces, $acl)){
+            // je récupère le tableau des roles autorisés
+            $authorizedRoles = $acl[$zoneAcces];
+            // et je vérifie les autorisations
+            $this->checkAuthorization($authorizedRoles);
+        }
     }
     /**
      * Méthode permettant d'afficher du code HTML en se basant sur les views
@@ -59,40 +107,42 @@ class CoreController
     /**
      * Méthode de vérification des droits d'entrée 
      */
-    protected function checkAuthorization($rolesRequis = [])
+    protected function checkAuthorization($roles = [])
     {
         global $router;
 
-        $rolesRequis[] = 'admin';
+        // $roles[] = 'admin';
 
-        if (!isset($_SESSION['userObject'])) {
+        if (isset($_SESSION['userObject'])) {
 
-            // il est rentré par la fenêtre ???
-            header('Location:' . $router->generate('user-login'));
+            // dd($_SESSION);
+
+            // je récupère l'objet User
+            $currentUser = $_SESSION['userObject'];
+            // dd($currentUser);
+
+            // je récupère le role du User
+            $roleUser = $currentUser->getRole();
+            // dump($roleUser);
+
+            // maintenant il me faut vérifier si le role du user correspond à la liste des roles que va recevoir ma méthode en paramètre
+            if(in_array($roleUser, $roles) || empty($roles)) {
+                // il a le droit d'accès
+                return true;
+            } else {
+                // sinon il n'a pas le droit d'accès
+                // error 403 : accès interdit
+                http_response_code(403);
+                // je donne ma vue vers la page 403
+                $this->show('error/err403');
+                exit();
+            }
+        } else {
+            // il sort d'où ce coco ??
+            // l'utilisateur n'est pas connecté
+            header('Location:'.$router->generate('user-login'));
             exit();
         }
-
-        // qu'est ce que je doit vérifier ?
-        // je doit vérifier si le role de l'utilisateur via $_SESSION
-        // correspond aux droitsRequis par le controller, donné en paramètre
-
-        // je récupère mon user
-        $user = $_SESSION['userObject'];
-
-        $roleUser = $user->getRole();
-
-        foreach ($rolesRequis as $role) {
-            if ($roleUser === $role) {
-                return true;
-            }
-        }
-
-        $errorModel = new ErrorController();
-        $errorModel->err403();
-
-        // qu'est ce que je fait si l'utilisateur n'a pas les droits ?
-        // header('Location:' . $router->generate('user-login'));
-        exit();
     }
 
     /**

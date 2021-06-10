@@ -18,9 +18,6 @@ class MainController extends CoreController
    */
   public function home()
   {
-    $rolesRequis[] = 'catalog-manager';
-
-    $this->checkAuthorization($rolesRequis);
 
     // Class::method grâce à static qui ne lie plus la méthode à l'instance
     $listCategoryModel = Category::findAllHomePage();

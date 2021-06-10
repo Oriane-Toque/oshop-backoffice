@@ -15,9 +15,6 @@
      */
     public function list()
     {
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
 
       // Class::method grâce à static qui ne lie plus la méthode à l'instance
       $listModel = Type::findAll();
@@ -37,9 +34,6 @@
      */
     public function add()
     {
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
 
       $typeData['titrePage'] = 'Ajouter un type';
 
@@ -53,9 +47,6 @@
      */
     public function create()
     {
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
 
       $errors = [];
 
@@ -93,9 +84,6 @@
      */
     public function update(int $routeInfo) {
 
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
 
       // je récupère toutes les données de ma type selon son id contenu dans $routeInfo
       $typeModel = Type::find($routeInfo);
@@ -115,9 +103,6 @@
      */
     public function edit(int $routeInfo) {
 
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
       
       $errors = [];
 
@@ -160,9 +145,6 @@
      */
     public function delete(int $routeInfo) {
 
-      $rolesRequis[] = 'catalog-manager';
-
-      $this->checkAuthorization($rolesRequis);
 
       Type::delete($routeInfo);
 
