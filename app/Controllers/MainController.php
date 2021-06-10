@@ -36,25 +36,29 @@ class MainController extends CoreController
   public function update() {
     
     // dd($_POST);
-    $position1 = filter_input(INPUT_POST, 'emplacement1', FILTER_VALIDATE_INT);
-    $position2 = filter_input(INPUT_POST, 'emplacement2', FILTER_VALIDATE_INT);
-    $position3 = filter_input(INPUT_POST, 'emplacement3', FILTER_VALIDATE_INT);
-    $position4 = filter_input(INPUT_POST, 'emplacement4', FILTER_VALIDATE_INT);
-    $position5 = filter_input(INPUT_POST, 'emplacement5', FILTER_VALIDATE_INT);
+    $positions = $_POST['emplacement'];
 
-    // dd($position1);
+    // dd($positions);
 
     $homeList = Category::findAllHomePage();
 
-    // dd($homeList);
-    $homeList[0]->setHomeOrder($position1);
-    $homeList[1]->setHomeOrder($position2);
-    $homeList[2]->setHomeOrder($position3);
-    $homeList[3]->setHomeOrder($position4);
-    $homeList[4]->setHomeOrder($position5);
+    $homeList[0]->setHomeOrder($positions[0]);
+    $homeList[1]->setHomeOrder($positions[1]);
+    $homeList[2]->setHomeOrder($positions[2]);
+    $homeList[3]->setHomeOrder($positions[3]);
+    $homeList[4]->setHomeOrder($positions[4]);
     // dd($homeList);
 
-    // $homeList->setHomeOrder($position1);
+    // dd($homeList[0]->getId());
     
+    $homeList[0]->updateHomeOrder($homeList[0]->getId());
+    $homeList[1]->updateHomeOrder($homeList[1]->getId());
+    $homeList[2]->updateHomeOrder($homeList[2]->getId());
+    $homeList[3]->updateHomeOrder($homeList[3]->getId());
+    $homeList[4]->updateHomeOrder($homeList[4]->getId());
+    
+    global $router;
+    header('Location:'.$router->generate('main-home'));
+    exit();
   }
 }

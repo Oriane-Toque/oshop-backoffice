@@ -251,6 +251,34 @@
       return $updatedRows;
     }
 
+    public function updateHomeOrder(int $id)
+    {
+      // Récupération de l'objet PDO représentant la connexion à la DB
+      $pdo = Database::getPDO();
+
+      // Ecriture de la requête UPDATE
+      $sql = "
+          UPDATE `category`
+          SET
+              home_order = :home_order,
+              updated_at = NOW()
+          WHERE id = :id
+      ";
+
+      // PDO prend connaissance des placeholder
+      // et nous donne un PDOStatement pour y affecter les valeurs
+      $pdoStatement = $pdo->prepare($sql);
+
+      // On affecte les valeurs à leur placeholder respectifs
+      $pdoStatement->bindValue(':home_order', $this->home_order, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+
+      $updatedHomeOrder = $pdoStatement->execute();
+
+      // retourne vrai si la requête
+      return $updatedHomeOrder;
+    }
+
     /**
      * Méthode permettant de supprimer une ligne de la table category
      * 
