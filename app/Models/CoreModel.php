@@ -21,7 +21,7 @@ abstract class CoreModel {
     abstract public static function find(int $id);
     abstract public static function findAll();
     abstract public function insert();
-    abstract public function update(int $id);
+    abstract public function update();
     abstract public static function delete(int $id);
 
     /**

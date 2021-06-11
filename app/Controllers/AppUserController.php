@@ -253,7 +253,7 @@
         $editUser->setRole($role);
         $editUser->setStatus($status);
 
-        $editUser->update($routeInfo);
+        $editUser->update();
 
         global $router;
         header('Location:'.$router->generate('user-update', ['userId' => $routeInfo]));

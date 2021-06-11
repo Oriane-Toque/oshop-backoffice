@@ -165,7 +165,7 @@
      * 
      * @return bool
      */
-    public function update($id)
+    public function update()
     {
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
@@ -200,7 +200,7 @@
       $pdoStatement->bindValue(':brand_id', $this->brand_id, PDO::PARAM_INT);
       $pdoStatement->bindValue(':category_id', $this->category_id, PDO::PARAM_INT);
       $pdoStatement->bindValue(':type_id', $this->type_id, PDO::PARAM_INT);
-      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
 
       // Execution de la requête de mise à jour (exec, pas query)
       $updatedRows = $pdoStatement->execute();

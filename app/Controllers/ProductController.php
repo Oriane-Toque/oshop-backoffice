@@ -146,7 +146,7 @@
       $editProduct->setBrandId($brand_id);
       $editProduct->setTypeId($type_id);
 
-      $editProduct->update($routeInfo);
+      $editProduct->update();
 
       global $router;
       header('Location: ' .$router->generate('product-update', ['productId' => $routeInfo]));

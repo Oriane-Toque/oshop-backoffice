@@ -119,7 +119,7 @@
      * 
      * @return bool
      */
-    public function update($id)
+    public function update()
     {
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
@@ -129,6 +129,7 @@
               UPDATE `brand`
               SET
                   name = :name,
+                  footer_order = :footerOrder,
                   updated_at = NOW()
               WHERE id = :id
           ";
@@ -136,7 +137,8 @@
       $pdoStatement = $pdo->prepare($sql);
 
       $pdoStatement->bindValue(':name', $this->name, PDO::PARAM_STR);
-      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':footerOrder', $this->footer_order, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':id', $this->id);
 
       // Execution de la requête de mise à jour (exec, pas query)
       $updatedRows = $pdoStatement->execute();

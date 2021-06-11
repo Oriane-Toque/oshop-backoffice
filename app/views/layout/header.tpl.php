@@ -24,6 +24,7 @@
 <?php
 
   if(isset($_SESSION['userObject'])) {
+    
     include __DIR__ . '/../partials/nav.tpl.php';
   } else {
     // On inclut des sous-vues => "partials"

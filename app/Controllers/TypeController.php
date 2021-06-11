@@ -129,7 +129,7 @@
         // affectation des données du formulaire
         $editType->setName($name);
 
-        $editType->update($routeInfo);
+        $editType->update();
 
         global $router;
         header('Location: ' . $router->generate('type-list'));

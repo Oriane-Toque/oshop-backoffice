@@ -165,7 +165,7 @@
      * @param integer $id id's user
      * @return bool
      */
-    public function update(int $id)
+    public function update()
     {
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
@@ -195,7 +195,7 @@
       $pdoStatement->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
       $pdoStatement->bindValue(':role', $this->role, PDO::PARAM_STR);
       $pdoStatement->bindValue(':status', $this->status, PDO::PARAM_INT);
-      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
 
       $updatedUser = $pdoStatement->execute();
 

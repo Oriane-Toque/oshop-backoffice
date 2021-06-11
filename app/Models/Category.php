@@ -219,7 +219,7 @@
      * 
      * @return bool
      */
-    public function update(int $id)
+    public function update()
     {
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
@@ -231,6 +231,7 @@
               name = :name,
               subtitle = :subtitle,
               picture = :picture,
+              home_order = :homeOrder,
               updated_at = NOW()
           WHERE id = :id
       ";
@@ -243,7 +244,8 @@
       $pdoStatement->bindValue(':name', $this->name, PDO::PARAM_STR);
       $pdoStatement->bindValue(':subtitle', $this->subtitle, PDO::PARAM_STR);
       $pdoStatement->bindValue(':picture', $this->picture, PDO::PARAM_STR);
-      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':id', $this->id);
+      $pdoStatement->bindValue(':homeOrder', $this->home_order, PDO::PARAM_INT);
 
       $updatedRows = $pdoStatement->execute();
 

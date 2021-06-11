@@ -152,7 +152,7 @@
         $editCategory->setSubtitle($subtitle);
         $editCategory->setPicture($picture);
 
-        $editCategory->update($routeInfo);
+        $editCategory->update();
 
         global $router;
         header('Location: ' . $router->generate('category-list'));

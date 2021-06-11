@@ -11,6 +11,7 @@ require_once '../vendor/autoload.php';
 // on démarre la session pour permettre la connexion utilisteur
 session_start();
 
+
 //?=========================================================
 //?======================= ROUTAGE =========================
 
@@ -44,7 +45,13 @@ else {
 //      - ainsi pour la route /, méthode "home" du MainController => "main-home"
 
 //?=========================================================
+//?=========================================================
 //?======================= MAPPAGE =========================
+//?=========================================================
+//?=========================================================
+
+//?=========================================================
+//?====================== ROUTES HOME ======================
 
 $router->map(
     'GET',
@@ -53,11 +60,21 @@ $router->map(
     'main-home'
 );
 
+//?=========================================================
+//?================ ROUTES HOME MANAGER ====================
+
+$router->map(
+    'GET',
+    '/homemanager/update',
+    '\App\Controllers\HomeManagerController::update',
+    'home-manager-update'
+);
+
 $router->map(
     'POST',
-    '/',
-    '\App\Controllers\MainController::update',
-    'main-update'
+    '/homemanager/update',
+    '\App\Controllers\HomeManagerController::edit',
+    'home-manager-modify'
 );
 
 //?=========================================================

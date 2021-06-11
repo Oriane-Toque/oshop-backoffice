@@ -115,7 +115,7 @@ class Type extends CoreModel {
      * 
      * @return bool
      */
-    public function update($id)
+    public function update()
     {
       // Récupération de l'objet PDO représentant la connexion à la DB
       $pdo = Database::getPDO();
@@ -124,15 +124,17 @@ class Type extends CoreModel {
       $sql = "
               UPDATE `type`
               SET
-                  name = :name,
-                  updated_at = NOW()
+                name = :name,
+                footer_order = :footerOrder,
+                updated_at = NOW()
               WHERE id = :id
           ";
       
       $pdoStatement = $pdo->prepare($sql);
 
       $pdoStatement->bindValue(':name', $this->name, PDO::PARAM_STR);
-      $pdoStatement->bindValue(':id', $id, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':footerOrder', $this->footer_order, PDO::PARAM_INT);
+      $pdoStatement->bindValue(':id', $this->id, PDO::PARAM_INT);
 
       // Execution de la requête de mise à jour (exec, pas query)
       $updatedRows = $pdoStatement->execute();

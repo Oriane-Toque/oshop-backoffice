@@ -126,7 +126,7 @@
         // affectation des données du formulaire
         $editBrand->setName($name);
 
-        $editBrand->update($routeInfo);
+        $editBrand->update();
 
         global $router;
         header('Location: ' . $router->generate('brand-list'));
