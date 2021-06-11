@@ -11,8 +11,7 @@ class ErrorController extends CoreController {
      */
     public function err404() {
         
-        http_response_code(404);
-        // On envoie le header 404
+
         header('HTTP/1.0 404 Not Found');
 
         $errorData['titrePage'] = 'Error 404';
@@ -26,9 +25,7 @@ class ErrorController extends CoreController {
      * @return void
      */
     public function err403() {
-        // code de reponse http
-        http_response_code(403);
-        
+
         // On envoie le header 403
         header('HTTP/1.0 403 Not Found');
 

@@ -15,17 +15,6 @@ class CoreController {
         // il vient de la page index.php
         global $match;
         
-        /* exemple de $match
-        ^ array:3 [▼
-            "target" => array:2 [▼
-                "method" => "list"
-                "controller" => "\App\Controllers\CategoryController"
-            ]
-            "params" => []
-            "name" => "category-list"
-            ]
-        */
-        
          // category-list
         $match["name"];
         
@@ -35,34 +24,36 @@ class CoreController {
         // method : list
         // ['catalog-manager','admin'];
         $acl = [
-            'main-home' => [],
+            'main-home' => ['catalog-manager', 'admin'],
+            'home-manager-update' => ['admin'],
+            'home-manager-modify' => ['admin'],
             'user-login' => [],
             'user-connect' => [],
-            'user-logout' => [],
-            'category-list' => [],
-            'category-add' => [],
-            'category-create' => [],
-            'category-update' => [],
-            'category-edit' => [],
-            'category-delete' => [],
-            'type-list' => [],
-            'type-add' => [],
-            'type-create' => [],
-            'type-update' => [],
-            'type-edit' => [],
-            'type-delete' => [],
-            'brand-list' => [],
-            'brand-add' => [],
-            'brand-create' => [],
-            'brand-update' => [],
-            'brand-edit' => [],
-            'brand-delete' => [],
-            'product-list' => [],
-            'product-add' => [],
-            'product-create' => [],
-            'product-update' => [],
-            'product-edit' => [],
-            'product-delete' => [],
+            'user-logout' => ['catalog-manager', 'admin'],
+            'category-list' => ['catalog-manager', 'admin'],
+            'category-add' => ['catalog-manager', 'admin'],
+            'category-create' => ['catalog-manager', 'admin'],
+            'category-update' => ['catalog-manager', 'admin'],
+            'category-edit' => ['catalog-manager', 'admin'],
+            'category-delete' => ['catalog-manager', 'admin'],
+            'type-list' => ['catalog-manager', 'admin'],
+            'type-add' => ['catalog-manager', 'admin'],
+            'type-create' => ['catalog-manager', 'admin'],
+            'type-update' => ['catalog-manager', 'admin'],
+            'type-edit' => ['catalog-manager', 'admin'],
+            'type-delete' => ['catalog-manager', 'admin'],
+            'brand-list' => ['catalog-manager', 'admin'],
+            'brand-add' => ['catalog-manager', 'admin'],
+            'brand-create' => ['catalog-manager', 'admin'],
+            'brand-update' => ['catalog-manager', 'admin'],
+            'brand-edit' => ['catalog-manager', 'admin'],
+            'brand-delete' => ['catalog-manager', 'admin'],
+            'product-list' => ['catalog-manager', 'admin'],
+            'product-add' => ['catalog-manager', 'admin'],
+            'product-create' => ['catalog-manager', 'admin'],
+            'product-update' => ['catalog-manager', 'admin'],
+            'product-edit' => ['catalog-manager', 'admin'],
+            'product-delete' => ['catalog-manager', 'admin'],
             'user-list' => ['admin'],
             'user-add' => ['admin'],
             'user-create' => ['admin'],

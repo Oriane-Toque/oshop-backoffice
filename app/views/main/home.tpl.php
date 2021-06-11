@@ -85,3 +85,9 @@
     </div>
   </div>
 </div>
+
+<a href="<?= $router->generate('home-manager-update') ?>">
+  <button class="btn btn-primary">
+    Modifier l'ordre des catégories dans la page home
+  </button>
+</a>

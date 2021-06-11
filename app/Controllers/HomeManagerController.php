@@ -29,7 +29,7 @@
           $this->show('homemanager/update', $tableauDeVariablePourLavue);
       }
 
-      public function modify()
+      public function edit()
       {
           // récup du $_POST
           $listeEmplacement = $_POST['emplacement'];

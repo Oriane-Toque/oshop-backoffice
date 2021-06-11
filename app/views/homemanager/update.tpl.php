@@ -24,3 +24,9 @@
     </div>
     <button type="submit" class="btn btn-primary btn-block mt-5">Valider</button>
 </form>
+
+<a href="<?= $router->generate('main-home') ?>">
+  <button class="btn btn-success mt-4">
+    Retour à l'accueil
+  </button>
+</a>

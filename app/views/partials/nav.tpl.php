@@ -7,26 +7,26 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="<?= $router->generate('main-home'); ?>">Accueil</a>
+        <li class="nav-item <?= $viewName === 'main/home' ? 'active' : '' ?>">
+          <a class="nav-link" href="<?= $router->generate('main-home'); ?>">Accueil <?= $viewName === 'main/home' ? '<span class="sr-only">(current)</span>' : '' ?></a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="<?= $router->generate('category-list'); ?>">Catégories <span class="sr-only">(current)</span></a>
+        <li class="nav-item <?= $viewName === 'category/list' ? 'active' : '' ?>">
+          <a class="nav-link" href="<?= $router->generate('category-list'); ?>">Catégories <?= $viewName === 'category/list' ? '<span class="sr-only">(current)</span>' : '' ?></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?= $router->generate('product-list'); ?>">Produits</a>
+        <li class="nav-item <?= $viewName === 'product/list' ? 'active' : '' ?>">
+          <a class="nav-link" href="<?= $router->generate('product-list'); ?>">Produits <?= $viewName === 'product/list' ? '<span class="sr-only">(current)</span>' : '' ?></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?= $router->generate('type-list'); ?>">Types</a>
+        <li class="nav-item <?= $viewName === 'type/list' ? 'active' : '' ?>">
+          <a class="nav-link" href="<?= $router->generate('type-list'); ?>">Types <?= $viewName === 'type/list' ? '<span class="sr-only">(current)</span>' : '' ?></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?= $router->generate('brand-list'); ?>">Marques</a>
+        <li class="nav-item <?= $viewName === 'brand/list' ? 'active' : '' ?>">
+          <a class="nav-link" href="<?= $router->generate('brand-list'); ?>">Marques <?= $viewName === 'brand/list' ? '<span class="sr-only">(current)</span>' : '' ?></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Tags</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= $router->generate('user-list'); ?>">Utilisateurs</a>
+          <a class="nav-link <?= $viewName === 'user/list' ? 'active' : '' ?>" href="<?= $router->generate('user-list'); ?>">Utilisateurs <?= $viewName === 'user/list' ? '<span class="sr-only">(current)</span>' : '' ?></a>
         </li>
         <li class="nax-item">
           <a href="<?= $router->generate('user-logout'); ?>">
