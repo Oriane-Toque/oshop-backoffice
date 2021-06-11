@@ -36,7 +36,6 @@ class CoreController {
         // ['catalog-manager','admin'];
         $acl = [
             'main-home' => [],
-            'main-update' => ['admin'],
             'user-login' => [],
             'user-connect' => [],
             'user-logout' => [],

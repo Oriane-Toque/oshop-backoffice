@@ -9,6 +9,7 @@
 require_once '../vendor/autoload.php';
 
 // on démarre la session pour permettre la connexion utilisteur
+
 session_start();
 
 
