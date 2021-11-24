@@ -39,7 +39,7 @@ class Database {
                 $configData['DB_PASSWORD'],
                 array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING) // Affiche les erreurs SQL à l'écran
             );
-        } 
+        }
         // ... mais si une erreur (Exception) survient, alors on attrape l'exception et on exécute le code que l'on souhaite (ici, on affiche un message d'erreur)
         catch(\Exception $exception) {
             echo 'Erreur de connexion...<br>';
